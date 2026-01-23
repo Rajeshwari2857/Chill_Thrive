@@ -62,6 +62,13 @@ header.detail-hero-img::before {
     z-index: 1;
 }
 
+.detail-hero-ice-bath {
+    background-image: url('/static/images/ice_bath.jpg');
+}
+
+.detail-hero-jacuzzi {
+    background-image: url('/static/images/jacuzzi.jpg');
+}
 .back-btn {
     position: relative;
     z-index: 2;
