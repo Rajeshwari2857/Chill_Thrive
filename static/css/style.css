@@ -1,0 +1,384 @@
+/* ==========================================
+   GENERAL STYLES & RESET
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-blue: #0066ff;
+    --dark-bg: #d8e1f2;
+    --light-bg: #f6f1f1;
+    --accent-cyan: #00d9ff;
+    --text-dark: #1a1a2e;
+    --text-light: #666;
+    --border-light: #e0e0e0;
+    --success-green: #10b981;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text-dark);
+    background-color: var(--light-bg);
+    line-height: 1.6;
+}
+
+/* ==========================================
+   HEADER & HERO SECTION
+   ========================================== */
+
+header.detail-hero-img {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2.5rem;
+    overflow: hidden;
+}
+
+header.detail-hero-img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*background: linear-gradient(135deg, rgba(0, 102, 255, 0.3), rgba(0, 217, 255, 0.2));*/
+    z-index: 1;
+}
+
+.back-btn {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(182, 222, 241, 0.95);
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: white;
+    transform: translateX(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.back-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ==========================================
+   MAIN CONTENT AREA
+   ========================================== */
+
+main.detail-content {
+    padding: 0;
+}
+
+.content-wrapper {
+    max-width: 800px;
+    margin: -60px auto 0;
+    padding: 4rem 2rem 3rem;
+    background: white;
+    position: relative;
+    z-index: 2;
+    border-radius: 20px 20px 0 0;
+    box-shadow: var(--shadow-lg);
+}
+
+.detail-tag {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.detail-intro {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+}
+
+/* ==========================================
+   QUICK STATS
+   ========================================== */
+
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e0f2ff 100%);
+    border-radius: 15px;
+    border: 2px solid #c5e3ff;
+}
+
+.stat {
+    font-size: 1rem;
+}
+
+.stat strong {
+    color: var(--primary-blue);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+/* ==========================================
+   INFO SECTIONS
+   ========================================== */
+
+.info-section {
+    margin-bottom: 2.5rem;
+    padding: 2rem;
+    border-radius: 15px;
+    background: var(--dark-bg);
+    border: 1px solid var(--border-light);
+}
+
+.info-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dark);
+}
+
+.info-section p {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+.info-section.blue-box {
+    background: linear-gradient(135deg, #0066ff15 0%, #00d9ff15 100%);
+    border: 2px solid #00d9ff40;
+    padding: 2.5rem;
+}
+
+.info-section.blue-box h3 {
+    color: var(--primary-blue);
+}
+
+/* ==========================================
+   BENEFIT CHECKLIST
+   ========================================== */
+
+.benefit-checklist {
+    list-style: none;
+}
+
+.benefit-checklist li {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    background: white;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-cyan);
+    transition: all 0.3s ease;
+}
+
+.benefit-checklist li:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
+}
+
+.benefit-checklist svg {
+    width: 24px;
+    height: 24px;
+    color: var(--success-green);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.benefit-checklist strong {
+    color: var(--primary-blue);
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.benefit-checklist li span {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* ==========================================
+   MEDICAL ALERT
+   ========================================== */
+
+.medical-alert {
+    padding: 1.5rem;
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 12px;
+    margin: 2.5rem 0;
+    font-size: 0.95rem;
+    color: #856404;
+}
+
+.medical-alert p {
+    margin: 0;
+}
+
+/* ==========================================
+   BOOKING FOOTER
+   ========================================== */
+
+.booking-footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.btn-primary-large {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    background: linear-gradient(135deg, var(--primary-blue), #0051cc);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: none;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary-large::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary-large:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, #0051cc, var(--primary-blue));
+}
+
+.btn-primary-large:hover::before {
+    left: 100%;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 768px) {
+    header.detail-hero-img {
+        height: 350px;
+        padding: 2rem;
+    }
+
+    .content-wrapper {
+        margin: -40px auto 0;
+        padding: 2.5rem 1.5rem 2rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .detail-intro {
+        font-size: 1.1rem;
+    }
+
+    .quick-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .info-section {
+        padding: 1.5rem;
+    }
+
+    .info-section h3 {
+        font-size: 1.5rem;
+    }
+
+    .benefit-checklist li {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .btn-primary-large {
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    header.detail-hero-img {
+        height: 280px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .detail-intro {
+        font-size: 1rem;
+    }
+
+    .quick-stats {
+        padding: 1rem;
+    }
+
+    .stat {
+        font-size: 0.9rem;
+    }
+
+    .info-section h3 {
+        font-size: 1.3rem;
+    }
+}

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CHILL THRIVE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chill_thrive.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/scroll_animations.css') }}">
+</head>
+<body>
+    <!-- Loading Screen - wpp.html content -->
+    <div id="loading-screen" class="loading-screen-wpp">
+        <div class="hero-section-loading">
+            <div class="background-image-loading"></div>
+            
+           <div class="logo-loading">CHILL THRIVE</div>
+            
+            <div class="scroll-container-loading">
+                <div class="scroll-text-loading">IT'S THE MIND THAT MAKES THE DIFFERENCE</div>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
+    </div>
+    <!-- Navigation -->
+    <header>
+        <div class="navbar">
+            <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+            <nav class="navbar">
+                    <a href="#" class="logo">Chill Thrive</a>
+
+                <ul>
+                    <li><a href="#home">HOME</a></li>
+                    <li><a href="#discover">DISCOVER</a></li>
+                    <li><a href="#services">SERVICES</a></li>
+                    <li><a href="#booking">BOOKING</a></li>
+                    <li><a href="#events">EVENTS</a></li>
+                    <li><a href="#reviews">REVIEW</a></li>
+                    <li><a href="founder.html">FOUNDERS</a></li>
+                    <li><a href="#contact">CONTACT US</a></li>
+                 </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+<header id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <img src="{{ url_for('static', filename='images/image.png') }}" alt="Premium Recovery Spa" class="hero-img">
+        
+        <div class="hero-content">
+            <span class="eyebrow">PREMIUM WELLNESS</span>
+            <h1>Welcome to Chill Thrive</h1>
+            <p class="tagline">Where Recovery Meets Resilience.</p>
+            <p class="subtext">Rejuvenate your body. Reset your mind.</p>
+            
+            <div class="hero-btns">
+                <a href="#booking" class="btn-primary">Book a Session</a>
+                <a href="#services" class="btn-secondary">Explore Services</a>
+            </div>
+        </div>
+    </header>
+    <section id="discover" class="discover">
+        <h2 class="discover-title">Discover </h2>
+        <div class="discover-line"></div>
+
+        <div class="discover-cards">
+            <div class="discover-card">
+                <h3>What is Cold Therapy?</h3>
+                <p class="short-desc">Cold therapy involves exposing the body to cold temperatures to reduce inflammation and boost recovery.</p>
+                <input type="checkbox" id="toggle1" class="read-more-toggle">
+                <p class="full-desc">Cold therapy, also known as cryotherapy, works by exposing your body to extremely cold temperatures for therapeutic purposes. When you immerse yourself in cold water or enter a cryotherapy chamber, your blood vessels constrict, reducing blood flow to your extremities. This process, called vasoconstriction, helps decrease inflammation and swelling in your muscles and joints. Additionally, cold therapy can help numb pain, reduce muscle soreness, and speed up recovery after intense workouts. Athletes have been using ice baths for decades to enhance performance and recovery, and modern research continues to support its benefits for both physical and mental wellness.</p>
+                <label for="toggle1" class="read-more-btn">
+                    <span class="more-text">Read More →</span>
+                    <span class="less-text">Read Less ←</span>
+                </label>
+            </div>
+
+            <div class="discover-card">
+                <h3>Science Behind Ice Baths</h3>
+                <p class="short-desc">Ice baths trigger vasoconstriction, helping muscles recover faster after intense activity.</p>
+                <input type="checkbox" id="toggle2" class="read-more-toggle">
+                <p class="full-desc">The science behind ice baths is fascinating and well-documented. When you submerge your body in cold water (typically 10-15°C or 50-59°F), your body initiates a complex physiological response. First, vasoconstriction occurs, where blood vessels narrow and reduce blood flow to the affected areas. This helps decrease metabolic activity and reduces tissue breakdown. When you exit the ice bath, vasodilation occurs—your blood vessels expand and fresh, oxygen-rich blood floods your muscles, removing metabolic waste products like lactic acid. This process also triggers the release of endorphins and norepinephrine, which can improve mood and mental clarity. Studies have shown that regular ice bath practice can reduce delayed onset muscle soreness (DOMS), decrease inflammation markers, and even boost your immune system.</p>
+                <label for="toggle2" class="read-more-btn">
+                    <span class="more-text">Read More →</span>
+                    <span class="less-text">Read Less ←</span>
+                </label>
+            </div>
+
+            <div class="discover-card">
+                <h3>Recovery Myths & Facts</h3>
+                <p class="short-desc">Ice baths don't instantly heal muscles, but they significantly aid long-term recovery.</p>
+                <input type="checkbox" id="toggle3" class="read-more-toggle">
+                <p class="full-desc">Let's debunk some common myths about recovery therapy. Myth: Ice baths instantly heal muscle damage. Fact: They reduce inflammation and pain but don't accelerate muscle repair overnight. Myth: You need to stay in ice baths for 20+ minutes. Fact: 10-15 minutes is optimal; longer exposure can be counterproductive. Myth: Colder is always better. Fact: Extremely cold temperatures (below 10°C) can cause tissue damage. Myth: Ice baths are only for athletes. Fact: Anyone can benefit from reduced inflammation and improved circulation. Myth: You should ice immediately after every workout. Fact: Some inflammation is necessary for muscle growth, so timing matters. Understanding these facts helps you make informed decisions about incorporating cold therapy into your wellness routine for maximum benefit.</p>
+                <label for="toggle3" class="read-more-btn">
+                    <span class="more-text">Read More →</span>
+                    <span class="less-text">Read Less ←</span>
+                </label>
+            </div>
+
+            <div class="discover-card">
+                <h3>Heat vs Cold Therapy</h3>
+                <p class="short-desc">Heat relaxes muscles and improves circulation, while cold reduces swelling and pain.</p>
+                <input type="checkbox" id="toggle4" class="read-more-toggle">
+                <p class="full-desc">Understanding when to use heat versus cold therapy is crucial for optimal recovery. Cold therapy is best used immediately after injury or intense exercise to reduce inflammation, numb acute pain, and minimize swelling. It's ideal for treating acute injuries, post-workout soreness, and inflammatory conditions. Heat therapy, on the other hand, increases blood flow, relaxes tight muscles, and improves flexibility. It's perfect for chronic pain, muscle stiffness, and warming up before activity. For maximum benefit, consider contrast therapy—alternating between hot and cold. This technique, used in our facilities, combines the benefits of both: cold reduces inflammation while heat promotes healing blood flow. Start with 3-5 minutes in cold, followed by 3-5 minutes in heat, and repeat 3-5 times. This powerful combination can dramatically enhance recovery and overall wellness.</p>
+                <label for="toggle4" class="read-more-btn">
+                    <span class="more-text">Read More →</span>
+                    <span class="less-text">Read Less ←</span>
+                </label>
+            </div>
+
+            <div class="discover-card">
+                <h3>Who Should Avoid Ice Baths</h3>
+                <p class="short-desc">People with heart conditions or poor circulation should consult a professional first.</p>
+                <input type="checkbox" id="toggle5" class="read-more-toggle">
+                <p class="full-desc">While ice baths offer numerous benefits, they're not suitable for everyone. You should avoid cold immersion therapy if you have cardiovascular disease, as the cold can put additional stress on your heart. Those with high blood pressure should consult their doctor first, as cold exposure can temporarily spike blood pressure. If you have Raynaud's disease or other circulation disorders, cold therapy can worsen symptoms and cause severe discomfort. Pregnant women should avoid ice baths due to the potential effects on blood flow and body temperature. People with open wounds or skin conditions should wait until healed. If you're recovering from recent surgery, check with your surgeon first. Additionally, those with cold allergies (cold urticaria) or extreme sensitivity to cold should avoid ice baths. Always consult with a healthcare professional before starting any new therapy regimen, and our trained staff at Chill Thrive can help assess your suitability for cold therapy.</p>
+                <label for="toggle5" class="read-more-btn">
+                    <span class="more-text">Read More →</span>
+                    <span class="less-text">Read Less ←</span>
+                </label>
+            </div>
+        </div>
+    </section>
+
+
+
+<section id="why-us" class="why-chill">
+    <div class="container">
+        <div class="section-header">
+            <span class="eyebrow">THE EXPERIENCE</span>
+            <h2>Why Chill Thrive?</h2>
+            <div class="header-line"></div>
+        </div>
+        
+        <div class="feature-grid-modern">
+            <div class="glass-card">
+                <div class="icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                </div>
+                <h3>Science-Backed Recovery</h3>
+                <p>Harnessing physiological research to optimize your body's natural healing processes.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <h3>Trained Professionals</h3>
+                <p>Guided by experts to ensure your cold and heat therapy sessions are safe and effective.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h3>Hygienic & Premium</h3>
+                <p>A pristine environment featuring high-end facilities for a truly restorative experience.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="icon-wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
+                </div>
+                <h3>Community-Driven</h3>
+                <p>Join a network of high-performers dedicated to physical and mental resilience.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services" class="services" >
+    <div class="services-content">
+        <h2 class="services-heading">SERVICES<br>OFFERED</h2>
+    </div>
+    <div class="cards-container">
+            <a href="{{ url_for('jacuzzi') }}" class="card card-1">
+                <img src="{{ url_for('static', filename='images/jacuzzi.jpg') }}" alt=>
+            </a>
+            <a href="{{ url_for('steam_bath') }}" class="card card-2">
+                <img src="{{ url_for('static', filename='images/steam_bath.jpg') }}" alt=>
+            </a>
+            <a href="{{ url_for('ice_bath') }}" class="card card-3">
+                <img src="{{ url_for('static', filename='images/ice_bath.jpg') }}" >
+            </a>
+        </div>
+
+        
+        </div>
+    </div>
+<script src="{{ url_for('static', filename='js/services.js') }}"></script>
+</section> 
+ <section id="booking" class="booking-experience">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">READY TO OPTIMIZE?</span>
+                <h2>Start Your Recovery Journey</h2>
+                <p>Select your path to resilience and high performance</p>
+                <div class="header-line"></div>
+            </div>
+
+            <div class="booking-wrapper">
+                <div class="step-bar">
+                    <div class="step active" data-step="1"><span>1</span><p>Therapy</p></div>
+                    <div class="step" data-step="2"><span>2</span><p>Time</p></div>
+                    <div class="step" data-step="3"><span>3</span><p>Details</p></div>
+                </div>
+
+                <form id="booking-form" class="interactive-form">
+                    <div class="form-step active" id="step-1">
+                        <h3 class="step-title">Choose Your Recovery Path</h3>
+                        <div class="service-selection-grid">
+                            <label class="service-card">
+                                <input type="radio" name="service" value="ice-bath" required>
+                                <div class="card-inner">
+                                    <div class="icon">❄️</div>
+                                    <h4>Ice Bath</h4>
+                                    <p>30/60 min immersion</p>
+                                </div>
+                            </label>
+                            <label class="service-card">
+                                <input type="radio" name="service" value="jacuzzi" required>
+                                <div class="card-inner">
+                                    <div class="icon">🫧</div>
+                                    <h4>Jacuzzi</h4>
+                                    <p>Warm hydro-relaxation</p>
+                                </div>
+                            </label>
+                            <label class="service-card">
+                                <input type="radio" name="service" value="steam" required>
+                                <div class="card-inner">
+                                    <div class="icon">💨</div>
+                                    <h4>Steam Bath</h4>
+                                    <p>Detoxifying heat</p>
+                                </div>
+                            </label>
+                            <label class="service-card highlight">
+                                <input type="radio" name="service" value="combo" required>
+                                <div class="card-inner">
+                                    <span class="badge">Best Value</span>
+                                    <div class="icon">⚡</div>
+                                    <h4>Full Combo</h4>
+                                    <p>Ice + Steam + Jacuzzi</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="step-2">
+                        <h3 class="step-title">Select Your Slot</h3>
+                        <div class="datetime-grid">
+                            <div class="input-wrap">
+                                <label>Preferred Date</label>
+                                <input type="date" name="date" required>
+                            </div>
+                            <div class="time-slots">
+                                <label class="slot-btn">
+                                    <input type="radio" name="time" value="09:00" required>
+                                    <span>09:00 AM</span>
+                                </label>
+                                <label class="slot-btn">
+                                    <input type="radio" name="time" value="12:00" required>
+                                    <span>12:00 PM</span>
+                                </label>
+                                <label class="slot-btn">
+                                    <input type="radio" name="time" value="15:00" required>
+                                    <span>03:00 PM</span>
+                                </label>
+                                <label class="slot-btn">
+                                    <input type="radio" name="time" value="18:00" required>
+                                    <span>06:00 PM</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="step-3">
+                        <h3 class="step-title">Personal Information</h3>
+                        <div class="details-grid">
+                            <input type="text" name="name" placeholder="Full Name" required>
+                            <input type="tel" name="phone" placeholder="Phone Number" required>
+                            <input type="email" name="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="payment-infobox">
+                            <p>📍 Payment will be handled at the venue via Cash or QR</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+      <script src="{{ url_for('static', filename='js/booking.js') }}"></script>       
+      
+    <section id="events" class="events-section">
+        
+        <svg class="background-lines" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+            <path class="line-path line-1" d="M200,200 Q400,300 600,250 T1000,300" stroke="#b0b5a8" stroke-width="1" fill="none" opacity="0.3"/>
+            <path class="line-path line-2" d="M1200,150 Q1400,250 1600,200" stroke="#b0b5a8" stroke-width="1" fill="none" opacity="0.3"/>
+            <path class="line-path line-3" d="M300,600 Q600,700 900,650 T1500,700" stroke="#b0b5a8" stroke-width="1" fill="none" opacity="0.3"/>
+            <path class="line-path line-4" d="M400,800 Q800,900 1200,850" stroke="#b0b5a8" stroke-width="1" fill="none" opacity="0.3"/>
+        </svg>
+
+        
+        <div class="quote-section">
+            <p class="quote-text">
+                "Welcome to the world of wellness, where relaxation knows no bounds."
+            </p>
+            
+        </div>
+        <div class="timeline-grid">
+            
+            <div class="timeline-item item-walking" data-delay="0.1">
+                <img src="{{ url_for('static', filename='images/events1.jpeg') }}" alt="Lando Norris walking" class="timeline-image">
+            </div>
+            <div class="timeline-item item-training" data-delay="0.2">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events3.jpeg') }}" alt="Training session" class="timeline-image">
+            </div>
+            <div class="timeline-item item-monaco" data-delay="0.3">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events2.jpeg') }}" alt="Golf" class="timeline-image">
+            </div>
+            <div class="timeline-item item-racing" data-delay="0.4">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events4.jpeg') }}" alt="Racing" class="timeline-image">
+            </div>
+            <div class="timeline-item item-miami" data-delay="0.5">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events6.jpeg') }}" alt="Podium celebration" class="timeline-image">
+            </div>
+            <div class="timeline-item item-victory" data-delay="0.6">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events5.jpeg') }}" alt="Victory celebration" class="timeline-image">
+            </div>
+            <div class="timeline-item item-helmet" data-delay="0.7">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events10.jpg') }}" alt="Racing helmet" class="timeline-image">
+            </div>
+            <div class="timeline-item item-press" data-delay="0.8">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events8.jpeg') }}" alt="Press conference" class="timeline-image">
+            </div>
+            <div class="timeline-item item-fia" data-delay="0.9">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events7.jpeg') }}" alt="Trophy presentation" class="timeline-image">
+            </div>
+            <div class="timeline-item item-car" data-delay="1.0">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events11.jpg') }}" alt="Racing car" class="timeline-image">
+            </div>
+            <div class="timeline-item item-dogs" data-delay="1.1">
+                <div class="timeline-label"></div>
+                <img src="{{ url_for('static', filename='images/events9.jpg') }}" alt="With dogs" class="timeline-image">
+            </div>
+        </div>
+         <svg class="background-lines" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+            <line class="line-path line-1" x1="0" y1="0" x2="500" y2="500" />
+            <line class="line-path line-2" x1="200" y1="0" x2="700" y2="500" />
+            <line class="line-path line-3" x1="400" y1="0" x2="900" y2="500" />
+            <line class="line-path line-4" x1="600" y1="0" x2="1100" y2="500" />
+            <line class="line-path line-5" x1="800" y1="0" x2="1300" y2="500" />
+            <line class="line-path line-6" x1="1000" y1="0" x2="1500" y2="500" />
+            <line class="line-path line-7" x1="1200" y1="0" x2="1700" y2="500" />
+            <line class="line-path line-8" x1="1400" y1="0" x2="1900" y2="500" />
+
+            <circle class="circle-path" cx="300" cy="300" r="200" />
+            <circle class="circle-path" cx="800" cy="600" r="300" />
+            <circle class="circle-path" cx="1400" cy="400" r="250" />
+            <circle class="circle-path" cx="200" cy="800" r="150" />
+            <circle class="circle-path" cx="1600" cy="900" r="350" />
+
+            <path class="circle-path" d="M 0 200 Q 500 300, 1000 150 T 1920 300" />
+            <path class="circle-path" d="M 1920 700 Q 1200 600, 600 750 T 0 850" />
+         </svg>
+    </section>
+    <section id="reviews" class="testimonials-section">
+        <div class="header">
+            <h1>What Our Clients Say</h1>
+            <p>Don't just take our word for it - hear from our satisfied clients</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="quote-icon">❝</div>
+                <div class="stars">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <p class="testimonial-text">
+                    "Absolutely wonderful experience! The Swedish massage was incredibly relaxing and the staff was so professional. I left feeling completely rejuvenated."
+                </p>
+                <div class="client-info">
+                    <div class="client-name">Sarah Johnson</div>
+                    <div class="client-date">2 weeks ago</div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon">❝</div>
+                <div class="stars">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <p class="testimonial-text">
+                    "The hot stone therapy exceeded all my expectations. The ambiance was perfect and the therapist was highly skilled. Highly recommend!"
+                </p>
+                <div class="client-info">
+                    <div class="client-name">Michael Chen</div>
+                    <div class="client-date">1 month ago</div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="quote-icon">❝</div>
+                <div class="stars">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <p class="testimonial-text">
+                    "My luxury facial was amazing! My skin has never looked better. The products they use are top quality and the service is impeccable."
+                </p>
+                <div class="client-info">
+                    <div class="client-name">Emily Rodriguez</div>
+                    <div class="client-date">3 weeks ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <hr>
+     <footer id="contact" class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-section">
+                        <h2>CHILL THRIVE</h2>
+                        <p>Your sanctuary for relaxation and wellness. We're dedicated to providing the finest spa treatments in a serene environment.</p>
+                    </div>
+                    <div class="footer-section opening-hours">
+                        <h2>Opening Hours</h2>
+                        <div class="hours-info">
+                            <div class="hours-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <div class="hours-time">
+                                    <span>Monday - Friday: 9:00 AM - 8:00 PM</span>
+                                    <span>Saturday: 10:00 AM - 6:00 PM</span>
+                                    <span>Sunday: 10:00 AM - 5:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="footer-section">
+                        <h2>Contact Us</h2>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>123 Wellness Avenue, Spa City, SC 12345</span>
+                            </div>
+                            <div class="contact-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                            </div>
+                            <div class="contact-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                </svg>
+                                <a href="mailto:info@chillthrive.com">info@chillthrive.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-section">
+                        <h2>Follow Us</h2>
+                        <div class="social-icons">
+                            <a href="#" title="Facebook" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" title="Instagram" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" title="Twitter" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <p class="follow-text">Stay updated with our latest offers and wellness tips!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Divider -->
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+            <p>&copy; 2026 Chill Thrive. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='js/events.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scroll_animations.js') }}"></script>
+
+</body>
+</html>

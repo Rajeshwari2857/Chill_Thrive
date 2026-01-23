@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lando Norris</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lando-norris.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="lando-header" style="display: none;">
+    </header>
+
+    <!-- Main Content -->
+    <main class="lando-main">
+        <!-- Background SVG Lines -->
+        <svg class="background-lines" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+            <path class="line-path line-1" d="M200,200 Q400,300 600,250 T1000,300" stroke="#b0b5a8" stroke-width="1" fill="none" opacity="0.3"/>
+            <path class="line-path line-2" d="M1200,150 Q1400,250 1600,200" stroke="#b0b5a8" stroke-width="1" fill="none" opacity="0.3"/>
+            <path class="line-path line-3" d="M300,600 Q600,700 900,650 T1500,700" stroke="#b0b5a8" stroke-width="1" fill="none" opacity="0.3"/>
+            <path class="line-path line-4" d="M400,800 Q800,900 1200,850" stroke="#b0b5a8" stroke-width="1" fill="none" opacity="0.3"/>
+        </svg>
+
+        <!-- Quote Section -->
+        <div class="quote-section">
+            <p class="quote-text">
+                It doesn't matter <strong>where</strong> you start, it's <strong>how</strong> you progress from there.
+            </p>
+            <div class="signature">Lando Norris</div>
+        </div>
+
+        <!-- Timeline Images Grid -->
+        <div class="timeline-grid">
+            <!-- Top Left - Walking -->
+            <div class="timeline-item item-walking" data-delay="0.1">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80" alt="Lando Norris walking" class="timeline-image">
+            </div>
+
+            <!-- Top Middle - Training -->
+            <div class="timeline-item item-training" data-delay="0.2">
+                <div class="timeline-label">SILVERSTONE, 2023</div>
+                <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="Training session" class="timeline-image">
+            </div>
+
+            <!-- Top Right - Monaco Golf -->
+            <div class="timeline-item item-monaco" data-delay="0.3">
+                <div class="timeline-label">MONACO, 2023</div>
+                <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=800&q=80" alt="Golf" class="timeline-image">
+            </div>
+
+            <!-- Second Row Left - Racing -->
+            <div class="timeline-item item-racing" data-delay="0.4">
+                <div class="timeline-label">SPA-FRANCORCHAMPS, 2024</div>
+                <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&q=80" alt="Racing" class="timeline-image">
+            </div>
+
+            <!-- Middle Left - Miami GP -->
+            <div class="timeline-item item-miami" data-delay="0.5">
+                <div class="timeline-label">MIAMI GP, 2024</div>
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80" alt="Podium celebration" class="timeline-image">
+            </div>
+
+            <!-- Middle - Victory -->
+            <div class="timeline-item item-victory" data-delay="0.6">
+                <div class="timeline-label">MONZA, 2024</div>
+                <img src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=80" alt="Victory celebration" class="timeline-image">
+            </div>
+
+            <!-- Middle Right - Britain Helmet -->
+            <div class="timeline-item item-helmet" data-delay="0.7">
+                <div class="timeline-label">BRITAIN, 2025</div>
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Racing helmet" class="timeline-image">
+            </div>
+
+            <!-- Third Row Left - Press Conference -->
+            <div class="timeline-item item-press" data-delay="0.8">
+                <div class="timeline-label">INTERLAGOS, 2024</div>
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80" alt="Press conference" class="timeline-image">
+            </div>
+
+            <!-- Bottom Left - FIA Prize Giving -->
+            <div class="timeline-item item-fia" data-delay="0.9">
+                <div class="timeline-label">FIA PRIZE GIVING, 2024</div>
+                <img src="https://images.unsplash.com/photo-1517456837005-d757b959ae2b?w=800&q=80" alt="Trophy presentation" class="timeline-image">
+            </div>
+
+            <!-- Bottom Middle - Car -->
+            <div class="timeline-item item-car" data-delay="1.0">
+                <div class="timeline-label">IMOLA, 2024</div>
+                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80" alt="Racing car" class="timeline-image">
+            </div>
+
+            <!-- Bottom Right - Battersea Dogs -->
+            <div class="timeline-item item-dogs" data-delay="1.1">
+                <div class="timeline-label">BATTERSEA, 2024</div>
+                <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=800&q=80" alt="With dogs" class="timeline-image">
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="page-indicator active">1</button>
+            <button class="page-flag">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 3h4v18H3V3zm4 0h4v9H7V3zm4 0h4v18h-4V3zm4 0h4v9h-4V3zm4 0h4v18h-4V3z"/>
+                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 3h4v18H3V3zm4 0h4v9H7V3zm4 0h4v18h-4V3zm4 0h4v9h-4V3zm4 0h4v18h-4V3z"/>
+                </svg>
+            </button>
+        </div>
+    </main>
+
+    <script src="lando-norris.js"></script>
+</body>
+</html>

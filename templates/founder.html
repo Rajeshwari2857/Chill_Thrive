@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Founder | Chill Thrive</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/founder.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="premium-theme">
+
+    <header>
+        <div class="navbar">
+            <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+            <nav class="navbar">
+                    <a href="#" class="logo">Chill Thrive</a>
+
+                <ul>
+                    <li><a href="home.html">HOME</a></li>
+                    <li><a href="#discover">DISCOVER</a></li>
+                    <li><a href="#services">SERVICES</a></li>
+                    <li><a href="#booking">BOOKING</a></li>
+                    <li><a href="#">EVENTS</a></li>
+                    <li><a href="#">REVIEW</a></li>
+                    <li><a href="#">FOUNDERS</a></li>
+                    <li><a href="#">CONTACT US</a></li>
+                 </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="founder-wrap">
+        <section class="founder-hero-reveal">
+            <div class="hero-image-container" data-aos="zoom-out" data-aos-duration="1500">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200" alt="Founder" class="main-founder-img">
+                <div class="founder-overlay"></div>
+            </div>
+            
+            <div class="founder-text-float" data-aos="fade-up" data-aos-delay="500">
+                <span class="gold-tag">Founder Story</span>
+                <h1>Crafting Resilience</h1>
+                <p class="founder-intro">"Recovery isn't just a physical act; it's a mental reset for high-performance living."</p>
+            </div>
+        </section>
+
+        <section class="founder-body container">
+            <div class="content-column" data-aos="fade-right">
+                <h2 class="title-accent">The Journey</h2>
+                <p>Chill Thrive was born from a pursuit of peak physical and mental wellness. We believe in the science of recovery to build lasting resilience.</p>
+                
+                <div class="mission-card">
+                    <h3>Our Mission</h3>
+                    <p>To empower high-performers through science-backed cold and heat therapy.</p>
+                </div>
+            </div>
+
+            <div class="content-column" data-aos="fade-left">
+                <h2 class="title-accent">Core Values</h2>
+                <div class="values-list">
+                    <div class="value-row">
+                        <i data-lucide="shield-check"></i>
+                        <div>
+                            <strong>Premium Quality</strong>
+                            <p>Hygienic, professional, and elite setups.</p>
+                        </div>
+                    </div>
+                    <div class="value-row">
+                        <i data-lucide="microscope"></i>
+                        <div>
+                            <strong>Science First</strong>
+                            <p>Everything we do is backed by physiological data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+        lucide.createIcons();
+    </script>
+</body>
+</html>
