@@ -1,0 +1,10 @@
+.form-box {
+    height: 100%;
+    margin: 4rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+

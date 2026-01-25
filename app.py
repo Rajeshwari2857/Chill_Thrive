@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash, redirect
+from flask import Flask, render_template, url_for, flash, redirect, request, session
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from form import RegistrationForm, LoginForm
@@ -80,24 +80,52 @@ def steam_bath():
     return render_template("steam_bath.html", title = "Steam bath")
 
 
-@app.route("/#booking")
-@app.route("/home#booking")
-def login():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        flash(f'Account created for {form.full_name.data}!', "success")
-        return redirect(url_for('chill_thrive'))
-    return render_template()
+@app.route("/booking")
+def booking():
+    return render_template("booking.html", title = "booking")
 
-def register():
-    form = LoginForm()
-    if form.validate_on_submit():
-        if form.email.data == 'admin@blog.com' and form.password.data == "password":
-            flash('You have been logged in successfully!', 'success')
-            return redirect(url_for('chill_thrive'))
-        else:
-            flash('Login failed. Please check your email and password', 'danger')
-    return render_template()
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('home'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        user = User.query.filter_by(email=email).first()
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            return redirect(url_for('booking'))
+        flash('Invalid email or password.', 'error')
+    return render_template('login.html')
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        name = request.form['name']
+        phone = request.form['phone']
+        email = request.form['email']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password)
+
+        try:
+            new_user = User(email=email, name=name, phone=phone,
+                            password=hashed_password, role=1)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Signup successful! Please log in.', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash('Username or email already exists.', 'error')
+            print(e)
+    return render_template('signup.html')
 
 
 if __name__ == "__main__":

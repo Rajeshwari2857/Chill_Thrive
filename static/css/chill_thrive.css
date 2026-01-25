@@ -988,7 +988,14 @@ h1 {
 }
 
 .time-slots .slot-btn input:checked + span {
-    color: white;
+    color: #0C507A;
+}
+
+
+input:checked {
+    color: #0C507A;
+    border: 2px solid #0C507A;
+    background-color: #9ddae7;
 }
 
 .slot-btn input:checked + span {
@@ -1046,8 +1053,17 @@ h1 {
 }
 
 .button-group .back-btn {
+    width: 100%;
     background: #e0f2fe;
     color: #0c507a;
+    border: none;
+    padding: 16px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 30px;
 }
 
 .button-group .back-btn:hover {
@@ -1837,4 +1853,10 @@ footer {
     .hours-item {
         font-size: 14px;
     }
+
+}
+
+.slot-btn:has(input:checked) {
+  border-color: #0c507a;
+  background-color: #bcdcf0;
 }
