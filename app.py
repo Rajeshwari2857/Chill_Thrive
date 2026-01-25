@@ -2,10 +2,28 @@ from flask import Flask, render_template, url_for, flash, redirect
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from form import RegistrationForm, LoginForm
+from dotenv import load_dotenv
+from models.models import db, User
+import os
 
 
-app = Flask(__name__, static_folder='static')
-db = SQLAlchemy(app)
+load_dotenv()
+
+app = Flask(__name__)
+
+app.secret_key = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project_db.sqlite3'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
 
 @app.route('/')
 @app.route('/home')
@@ -56,6 +74,7 @@ def register():
         else:
             flash('Login failed. Please check your email and password', 'danger')
     return render_template()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
