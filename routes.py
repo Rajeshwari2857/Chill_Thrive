@@ -1,11 +1,8 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, redirect, url_for, flash
 from form import RegistrationForm, LoginForm
 
-
 app = Flask(__name__, static_folder='static')
-db = SQLAlchemy(app)
+
 
 @app.route('/')
 @app.route('/home')
