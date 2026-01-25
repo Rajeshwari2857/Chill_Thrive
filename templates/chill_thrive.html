@@ -67,7 +67,11 @@
             <p class="subtext">Rejuvenate your body. Reset your mind.</p>
             
             <div class="hero-btns">
+                {% if user_logged_in %}
                 <a href="{{ url_for('booking') }}" class="btn-primary">Book a Session</a>
+                {% else %}
+                <a href="{{ url_for('signup') }}" class="btn-primary">Book a Session</a>
+                {% endif %}
                 <a href="#services" class="btn-secondary">Explore Services</a>
             </div>
         </div>

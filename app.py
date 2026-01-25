@@ -48,11 +48,15 @@ with app.app_context():
         )
         db.session.add(admin)
     db.session.commit()
+ 
 
 @app.route('/')
 @app.route('/home')
 def chill_thrive():
-    return render_template('chill_thrive.html')
+    user_logged_in = False
+    if 'user_id' in session:
+        user_logged_in=True
+    return render_template('chill_thrive.html', user_logged_in=user_logged_in)
 
 
 @app.route('/founder')
@@ -89,7 +93,7 @@ def booking():
 def logout():
     session.pop('user_id', None)
     flash('You have been logged out.', 'success')
-    return redirect(url_for('home'))
+    return redirect(url_for('chill_thrive'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
