@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, flash, redirect
+from flask import Flask, render_template, url_for, flash, redirect, request, session
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from form import RegistrationForm, LoginForm
@@ -79,25 +79,74 @@ def ice_bath():
 def steam_bath():
     return render_template("steam_bath.html", title = "Steam bath")
 
+@app.route("/booking")
+def booking():
+    return render_template("booking.html", title = "booking")
 
-@app.route("/#booking")
-@app.route("/home#booking")
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('home'))
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        flash(f'Account created for {form.full_name.data}!', "success")
-        return redirect(url_for('chill_thrive'))
-    return render_template()
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
-def register():
-    form = LoginForm()
-    if form.validate_on_submit():
-        if form.email.data == 'admin@blog.com' and form.password.data == "password":
-            flash('You have been logged in successfully!', 'success')
-            return redirect(url_for('chill_thrive'))
-        else:
-            flash('Login failed. Please check your email and password', 'danger')
-    return render_template()
+        user = User.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            return redirect(url_for('dashboard'))
+        flash('Invalid username or password.', 'error')
+    return render_template('login.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password)
+
+        try:
+            new_user = User(email=email, username=username,
+                            password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Signup successful! Please log in.', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash('Username or email already exists.', 'error')
+            print(e)
+    return render_template('signup.html')
+
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     if request.method == 'POST':
+#         email = request.form['email']
+#         username = request.form['username']
+#         password = request.form['password']
+#         full_name = request.form['name']
+#         qualification = request.form['qualification']
+#         dob = datetime.strptime(request.form['dob'], '%Y-%m-%d')
+#         hashed_password = generate_password_hash(password)
+
+#         try:
+#             new_user = User(email=email, username=username,
+#                             password=hashed_password, full_name=full_name, qualification=qualification, dob=dob)
+#             db.session.add(new_user)
+#             db.session.commit()
+#             flash('Signup successful! Please log in.', 'success')
+#             return redirect(url_for('login'))
+#         except Exception as e:
+#             flash('Username or email already exists.', 'error')
+#             # print(e)
+#     return render_template('signup.html')
+
+
 
 
 if __name__ == "__main__":
