@@ -70,7 +70,7 @@
                 {% if user_logged_in %}
                 <a href="{{ url_for('booking') }}" class="btn-primary">Book a Session</a>
                 {% else %}
-                <a href="{{ url_for('signup') }}" class="btn-primary">Book a Session</a>
+                <a href="{{ url_for('login') }}" class="btn-primary">Book a Session</a>
                 {% endif %}
                 <a href="#services" class="btn-secondary">Explore Services</a>
             </div>

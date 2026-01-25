@@ -140,39 +140,64 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function addFormSubmit() {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
 
-            // Final validation
-            if (!validateCurrentStep()) {
-                return;
-            }
+function addFormSubmit() {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-            // Collect form data
-            const formData = new FormData(form);
-            const bookingData = {
-                service: formData.get('service'),
-                date: new Date(formData.get('date')).toLocaleDateString(),
-                time: formData.get('time'),
-                name: formData.get('name'),
-                phone: formData.get('phone'),
-                email: formData.get('email'),
-                bookingTime: new Date().toISOString()
-            };
+        if (!validateCurrentStep()) return;
 
-            // Log booking data (you can send to server here)
-            console.log('Booking Confirmed:', bookingData);
+        const formData = new FormData(form);
 
-            // Show success message
-            showSuccessMessage(bookingData);
+        // Raw values from form
+        const service = formData.get('service');
+        const time = formData.get('time');
+        const date = formData.get('date');
 
-            // Reset form and go back to step 1
+        // Convert to DB-friendly integers
+        const recovery_path = RECOVERY_PATH_MAP[service];
+        const slot = SLOT_MAP[time];
+
+        if (!recovery_path || !slot) {
+            alert("Invalid selection. Please try again.");
+            return;
+        }
+
+        // Payload matches your SQLAlchemy model
+        const payload = {
+            recovery_path: recovery_path, // INT
+            date: date,                    // YYYY-MM-DD
+            slot: slot                     // INT
+        };
+
+        fetch('/booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(res => {
+            if (!res.ok) throw new Error("Booking failed");
+            return res.json();
+        })
+        .then(data => {
+            showSuccessMessage({
+                service,
+                date,
+                time
+            });
+
             form.reset();
             currentStep = 1;
             showStep(currentStep);
+        })
+        .catch(err => {
+            alert("Something went wrong. Please try again.");
+            console.error(err);
         });
-    }
+    });
+}
 
     function showSuccessMessage(data) {
         const message = `✅ Booking Confirmed!\n\nService: ${data.service.toUpperCase().replace('-', ' ')}\nDate: ${data.date}\nTime: ${data.time}\nName: ${data.name}\n\nConfirmation email sent to ${data.email}`;

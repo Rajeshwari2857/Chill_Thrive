@@ -86,6 +86,15 @@ def steam_bath():
 
 @app.route("/booking")
 def booking():
+    if request.method == 'POST':
+        data = request.get_json()
+        recovery_path = data.get('recovery_path')
+        date = data.get('date')
+        slot = data.get('slot')
+        print("Recovery path: ", recovery_path)
+        print("Date: ", date)
+        print("Slot: ", slot)
+
     return render_template("booking.html", title = "booking")
 
 
