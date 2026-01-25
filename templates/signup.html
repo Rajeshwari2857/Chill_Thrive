@@ -49,19 +49,33 @@
             action="{{ url_for('signup') }}"
             enctype="multipart/form-data"
           >
-            <input type="email" name="email" placeholder="Email" required />
             <input
               type="text"
-              name="username"
-              placeholder="Username"
+              name="name"
+              placeholder="Full Name"
               required
             />
+
+            <input
+              type="number"
+              name="phone"
+              placeholder="Phone Number"
+              required
+            /> 
+
+            <input type="text"
+            name="email" 
+            placeholder="Email" 
+            required
+            />
+
             <input
               type="password"
               name="password"
               placeholder="Password"
               required
             />
+            
             <button type="submit">Sign Up</button>
           </form>
           <p>

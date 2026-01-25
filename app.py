@@ -106,14 +106,15 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
+        name = request.form['name']
+        phone = request.form['phone']
         email = request.form['email']
-        username = request.form['username']
         password = request.form['password']
         hashed_password = generate_password_hash(password)
 
         try:
-            new_user = User(email=email, username=username,
-                            password=hashed_password)
+            new_user = User(email=email, name=name, phone=phone,
+                            password=hashed_password, role=1)
             db.session.add(new_user)
             db.session.commit()
             flash('Signup successful! Please log in.', 'success')
