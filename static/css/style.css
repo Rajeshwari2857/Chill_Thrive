@@ -34,9 +34,9 @@ body {
 }
 
 /* ==========================================
-   HEADER & HERO SECTION
-   ========================================== */
+   HEADER & HERO SECTION change...
 
+   ========================================== */
 header.detail-hero-img {
     position: relative;
     width: 100%;
@@ -61,6 +61,7 @@ header.detail-hero-img::before {
     /*background: linear-gradient(135deg, rgba(0, 102, 255, 0.3), rgba(0, 217, 255, 0.2));*/
     z-index: 1;
 }
+
 
 .back-btn {
     position: relative;
