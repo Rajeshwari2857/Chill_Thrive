@@ -988,7 +988,14 @@ h1 {
 }
 
 .time-slots .slot-btn input:checked + span {
-    color: white;
+    color: #0C507A;
+}
+
+
+input:checked {
+    color: #0C507A;
+    border: 2px solid #0C507A;
+    background-color: #9ddae7;
 }
 
 .slot-btn input:checked + span {
