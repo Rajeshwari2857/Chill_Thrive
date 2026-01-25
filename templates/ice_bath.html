@@ -10,8 +10,8 @@
 </head>
 <body class="detail-page-layout">
 
-    <header class="detail-hero-img" style="background-image: url('ice_bath.jpg');">
-        <a href="{{ url_for('chill_thrive') }}#services" class="back-btn"><i data-lucide="arrow-left"></i> Back to Services</a>
+    <header class="detail-hero-img detail-hero-ice-bath">
+    <a href="{{ url_for('chill_thrive') }}#services" class="back-btn"><i data-lucide="arrow-left"></i> Back to Services</a>
     </header>
 
     <main class="detail-content">
@@ -49,7 +49,7 @@
             </div>
 
             <div class="booking-footer">
-                <a href="home.html#booking" class="btn-primary-large">Book Your Session Now</a>
+                <a href="{{ url_for('chill_thrive') }}#booking" class="btn-primary-large">Book Your Session Now</a>
             </div>
         </div>
     </main>
