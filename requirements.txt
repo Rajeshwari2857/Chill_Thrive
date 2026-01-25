@@ -3,3 +3,4 @@ python-dotenv
 Flask-SQLALchemy
 flask_wtf
 flask 
+Werkzeug

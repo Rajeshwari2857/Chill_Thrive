@@ -5,6 +5,7 @@ from form import RegistrationForm, LoginForm
 from dotenv import load_dotenv
 from models.models import db, User
 import os
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 load_dotenv()
@@ -24,6 +25,29 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+    admin_email = os.getenv("ADMIN_EMAIL")
+    admin_password = os.getenv("ADMIN_PASSWORD")
+    hashed_admin_pw = generate_password_hash(admin_password)
+    admin_name = os.getenv("ADMIN_NAME")
+    admin_phone = os.getenv("ADMIN_PHONE")
+
+    admin_user = User.query.filter_by(email=admin_email).first()
+
+    # do nothing if admin exists, or creates new admin
+    if admin_user:
+        print("Admin user exists")
+        pass
+    else:
+        print("Creating Admin user")
+        admin = User(
+            email = admin_email,
+            phone = admin_phone,
+            name = admin_name,
+            password = hashed_admin_pw,
+            role = 0
+        )
+        db.session.add(admin)
+    db.session.commit()
 
 @app.route('/')
 @app.route('/home')
