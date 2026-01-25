@@ -79,6 +79,7 @@ def ice_bath():
 def steam_bath():
     return render_template("steam_bath.html", title = "Steam bath")
 
+
 @app.route("/booking")
 def booking():
     return render_template("booking.html", title = "booking")
@@ -90,18 +91,20 @@ def logout():
     flash('You have been logged out.', 'success')
     return redirect(url_for('home'))
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
 
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
-            return redirect(url_for('dashboard'))
-        flash('Invalid username or password.', 'error')
+            return redirect(url_for('booking'))
+        flash('Invalid email or password.', 'error')
     return render_template('login.html')
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -123,31 +126,6 @@ def signup():
             flash('Username or email already exists.', 'error')
             print(e)
     return render_template('signup.html')
-
-# @app.route('/signup', methods=['GET', 'POST'])
-# def signup():
-#     if request.method == 'POST':
-#         email = request.form['email']
-#         username = request.form['username']
-#         password = request.form['password']
-#         full_name = request.form['name']
-#         qualification = request.form['qualification']
-#         dob = datetime.strptime(request.form['dob'], '%Y-%m-%d')
-#         hashed_password = generate_password_hash(password)
-
-#         try:
-#             new_user = User(email=email, username=username,
-#                             password=hashed_password, full_name=full_name, qualification=qualification, dob=dob)
-#             db.session.add(new_user)
-#             db.session.commit()
-#             flash('Signup successful! Please log in.', 'success')
-#             return redirect(url_for('login'))
-#         except Exception as e:
-#             flash('Username or email already exists.', 'error')
-#             # print(e)
-#     return render_template('signup.html')
-
-
 
 
 if __name__ == "__main__":
