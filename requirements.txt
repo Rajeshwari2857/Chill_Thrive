@@ -4,4 +4,5 @@ Flask-SQLALchemy
 flask_wtf
 flask 
 Werkzeug
+psycopg2-binary
 psycopg[binary]
