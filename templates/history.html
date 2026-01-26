@@ -29,8 +29,15 @@
                     <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#discover">DISCOVER</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#services">SERVICES</a></li>
-                    <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
-                    <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                    {% if user %}
+                        {% if user.role == 1 %}
+                            <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                            <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                        <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                    {% endif %}
                     <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
                     <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
@@ -47,6 +54,52 @@
     </header>
     <div class="form-box">
         <!--appointments of user-->
+        <h1>Upcoming Appointments</h1>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Appointment ID</th>
+                <th>Recovery Path</th>
+                <th>Slot</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appointment in active_appointments %}
+              <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{% if appointment.recovery_path == 1 %}
+                        Ice Bath
+                    {% elif appointment.recovery_path == 2 %}
+                        Jacuzzi
+                    {% elif appointment.recovery_path == 3 %}
+                        Steam Bath
+                    {% elif appointment.recovery_path == 4 %}
+                        Full Combo
+                    {% endif %}
+                </td>
+                <td>{% if appointment.slot == 1 %}
+                        9 AM
+                    {% elif appointment.slot == 2 %}
+                        12 PM
+                    {% elif appointment.slot == 3 %}
+                        3 PM
+                    {% elif appointment.slot == 4 %}
+                        6 PM
+                    {% endif %}
+                </td>
+                <td>{{ appointment.date.strftime('%d-%m-%Y') }}</td>
+            </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+     
+    </div>
+    <hr>
+    <div class="form-box" style="margin-top: 0.25rem;">
+        <!--appointments of user-->
         <h1>Appointment History</h1>
         <div class="table-responsive">
           <table class="table">
@@ -59,7 +112,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for appointment in appointments %}
+              {% for appointment in past_appointments %}
               <tr>
                 <td>{{ appointment.id }}</td>
                 <td>{% if appointment.recovery_path == 1 %}

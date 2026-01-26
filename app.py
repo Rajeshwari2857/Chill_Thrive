@@ -68,9 +68,23 @@ def history():
         flash('Please log in to book an appointment.', 'error')
         return redirect(url_for('login'))
     # gives list of appointments of the user in session
-    appointments = Appointments.query.filter_by(user_id=session['user_id']).all()
+    today = datetime.now().date()
+
+    active_appointments = (
+        Appointments.query
+        .filter(Appointments.date >= today, Appointments.user_id==session['user_id'])
+        .order_by(Appointments.date.asc(), Appointments.slot.asc())
+        .all()
+    )
+
+    past_appointments = (
+        Appointments.query
+        .filter(Appointments.date < today, Appointments.user_id==session['user_id'])
+        .order_by(Appointments.date.desc(), Appointments.slot.desc())
+        .all()
+    )
     user = User.query.filter_by(id=session['user_id']).first()
-    return render_template('history.html', title="History", appointments=appointments, user=user)
+    return render_template('history.html', title="History", active_appointments=active_appointments, past_appointments=past_appointments, user=user)
 
 
 @app.route('/founder')

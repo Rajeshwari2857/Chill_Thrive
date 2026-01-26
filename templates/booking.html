@@ -91,8 +91,15 @@
                     <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#discover">DISCOVER</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#services">SERVICES</a></li>
-                    <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
-                    <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                    {% if user %}
+                        {% if user.role == 1 %}
+                            <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                            <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                        <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                    {% endif %}
                     <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
                     <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
