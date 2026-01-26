@@ -11,7 +11,9 @@ from flask import jsonify
 
 load_dotenv()
 
+
 app = Flask(__name__)
+
 
 app.secret_key = os.getenv('SECRET_KEY')
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -22,10 +24,11 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+
 db.init_app(app)
+
 
 with app.app_context():
     db.create_all()
@@ -294,3 +297,4 @@ def page_not_found(error):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
+# 300 :D
