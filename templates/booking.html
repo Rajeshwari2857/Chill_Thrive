@@ -4,15 +4,78 @@
     <meta charset="UTF-8">
     <title>CHILL THRIVE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chill_thrive.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/scroll_animations.css') }}">
 
     <style>
         .container {
-    margin-top: 8rem;
-    margin-bottom: 2rem;
-}
+        margin-top: 8rem;
+        margin-bottom: 2rem;
+        }
+
+        /* Overlay */
+        .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        }
+
+        /* Modal box */
+        .modal {
+        background: #fff;
+        border-radius: 12px;
+        padding: 24px;
+        width: 90%;
+        max-width: 420px;
+        position: relative;
+        animation: scaleIn 0.25s ease;
+        }
+
+        /* Close button */
+        .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        font-size: 22px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        }
+
+        /* Content */
+        .modal h2 {
+        margin-bottom: 16px;
+        }
+
+        .modal-content p {
+        margin: 6px 0;
+        font-size: 15px;
+        }
+
+        /* Action button */
+        .modal-btn {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background: #0c507a;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -41,7 +104,7 @@
                             </div>
                             <div class="dropdown-item">
                                 <h4>📱 Phone</h4>
-                                <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                                <a href="tel:+915554123467">+91 5554123467</a>
                             </div>>
                             <a href="#contact">CONTACT US</a></li>
                  </ul>
@@ -180,7 +243,7 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                                 </svg>
-                                <a href="tel:+15551234567">+91 5554123467</a>
+                                <a href="tel:+915554123467">+91 5554123467</a>
                             </div>
                             <div class="contact-item">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -217,8 +280,24 @@
             </div>
         </div>
     </footer>
-    <script src="{{ url_for('static', filename='js/events.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/scroll_animations.js') }}"></script>
 
-</body>
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal">
+            <button class="modal-close" id="close-modal">&times;</button>
+
+            <h2>✅ Booking Confirmed</h2>
+
+            <div class="modal-content" id="modal-content">
+            <!-- injected by JS -->
+            </div>
+
+            <button class="modal-btn" id="modal-ok">Done</button>
+        </div>
+    </div>
+
+        <script src="{{ url_for('static', filename='js/events.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/scroll_animations.js') }}"></script>
+
+    </body>
 </html>

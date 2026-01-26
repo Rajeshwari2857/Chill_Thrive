@@ -3,9 +3,10 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from form import RegistrationForm, LoginForm
 from dotenv import load_dotenv
-from models.models import db, User
+from models.models import db, User, Appointments
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import jsonify
 
 
 load_dotenv()
@@ -84,18 +85,56 @@ def steam_bath():
     return render_template("steam_bath.html", title = "Steam bath")
 
 
-@app.route("/booking")
+@app.route("/booking", methods=["GET", "POST"])
 def booking():
+    if 'user_id' not in session:
+        flash('Please log in to book an appointment.', 'error')
+        return redirect(url_for('login'))
+    
     if request.method == 'POST':
         data = request.get_json()
-        recovery_path = data.get('recovery_path')
-        date = data.get('date')
-        slot = data.get('slot')
-        print("Recovery path: ", recovery_path)
-        print("Date: ", date)
-        print("Slot: ", slot)
 
-    return render_template("booking.html", title = "booking")
+        recovery_path = data.get('recovery_path')
+        date_str = data.get('date')
+        slot = data.get('slot')
+
+        booking_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+        # Validate date is not in the past
+        if booking_date < datetime.now().date():
+            return jsonify(
+                success=False,
+                message="Cannot book a slot in the past. Please select a valid date."
+            ), 400
+
+        # check if slot is already booked
+        existing = Appointments.query.filter_by(
+            date=booking_date,
+            slot=slot
+        ).first()
+
+        if existing:
+            return jsonify(
+                success=False,
+                message="This time slot is already booked. Please choose another slot."
+            ), 409  # Conflict
+
+        # create new booking
+        appointment = Appointments(
+            user_id=session['user_id'],
+            recovery_path=recovery_path,
+            date=booking_date,
+            slot=slot
+        )
+
+        db.session.add(appointment)
+        db.session.commit()
+
+        return jsonify(
+            success=True,
+            message="Booking confirmed"
+        ), 200
+
+    return render_template("booking.html", title="booking")
 
 
 @app.route('/logout')
