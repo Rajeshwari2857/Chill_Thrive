@@ -44,6 +44,9 @@
                     {% if user %}
                         {% if user.role == 0 or user.role == 2 %}
                             <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
+                            {% if user.role == 0 %}
+                                <li><a href="{{ url_for('add_employee') }}">ADD EMPLOYEE</a></li>
+                            {% endif %}
                         {% endif %}
                         <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
                     {% endif %}
@@ -401,7 +404,7 @@
                         <h2>Follow Us</h2>
                         <div class="social-icons">
                             <a href="https://www.youtube.com/@ChillThrive" title="Youtube" aria-label="Youtube">
-                                <i class="fab fa-Youtube-f"></i>
+                                <i class="fab fa-youtube"></i>
                             </a>
                             <a href="https://www.instagram.com/chill.thrive/" title="Instagram" aria-label="Instagram">
                                 <i class="fab fa-instagram"></i>

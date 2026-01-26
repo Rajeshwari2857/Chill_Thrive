@@ -39,6 +39,9 @@
                     {% if user %}
                         {% if user.role == 0 or user.role == 2 %}
                             <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
+                            {% if user.role == 0 %}
+                                <li><a href="{{ url_for('add_employee') }}">ADD EMPLOYEE</a></li>
+                            {% endif %}
                         {% endif %}
                         <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
                     {% endif %}
