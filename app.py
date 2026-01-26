@@ -57,6 +57,8 @@ def chill_thrive():
     user_logged_in = False
     if 'user_id' in session:
         user_logged_in=True
+        user = User.query.filter_by(id=session['user_id']).first()
+        return render_template('chill_thrive.html', title = "Chill thrive", user=user)
     return render_template('chill_thrive.html', user_logged_in=user_logged_in)
 
 
@@ -67,13 +69,14 @@ def history():
         return redirect(url_for('login'))
     # gives list of appointments of the user in session
     appointments = Appointments.query.filter_by(user_id=session['user_id']).all()
-    return render_template('history.html', title="History", appointments=appointments)
+    user = User.query.filter_by(id=session['user_id']).first()
+    return render_template('history.html', title="History", appointments=appointments, user=user)
 
 
 @app.route('/founder')
 def founder():
     if 'user_id' in session:
-        user = User.query.filter_by(id=session['user.id']).first()
+        user = User.query.filter_by(id=session['user_id']).first()
         return render_template('founder.html', title = "Founder", user=user)
     return render_template("founder.html", title="Founder")
 
@@ -146,8 +149,8 @@ def booking():
             success=True,
             message="Booking confirmed"
         ), 200
-
-    return render_template("booking.html", title="booking")
+    user = User.query.filter_by(id=session['user_id']).first()
+    return render_template("booking.html", title="booking", user=user)
 
 
 @app.route('/logout')

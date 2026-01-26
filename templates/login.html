@@ -34,7 +34,7 @@
                     <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#contact_us">CONTACT US</a></li>
                     {% if user %}
-                        {% if user.user_role == 0 or user.user_role == 2 %}
+                        {% if user.role == 0 or user.role == 2 %}
                             <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
                         {% endif %}
                     {% endif %}
