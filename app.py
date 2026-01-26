@@ -69,6 +69,11 @@ def chill_thrive():
     return render_template('chill_thrive.html', user_logged_in=user_logged_in)
 
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html"), 404
+
+
 @app.route('/history')
 def history():
     if 'user_id' not in session:
@@ -287,11 +292,6 @@ def admin_dashboard():
         past_appointments=past_appointments,
         user=user
     )
-
-
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template("404.html"), 404
 
 
 if __name__ == "__main__":
