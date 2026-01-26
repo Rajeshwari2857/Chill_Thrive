@@ -57,11 +57,41 @@ def chill_thrive():
     user_logged_in = False
     if 'user_id' in session:
         user_logged_in=True
+        user = User.query.filter_by(id=session['user_id']).first()
+        return render_template('chill_thrive.html', title = "Chill thrive", user=user)
     return render_template('chill_thrive.html', user_logged_in=user_logged_in)
+
+
+@app.route('/history')
+def history():
+    if 'user_id' not in session:
+        flash('Please log in to book an appointment.', 'error')
+        return redirect(url_for('login'))
+    # gives list of appointments of the user in session
+    today = datetime.now().date()
+
+    active_appointments = (
+        Appointments.query
+        .filter(Appointments.date >= today, Appointments.user_id==session['user_id'])
+        .order_by(Appointments.date.asc(), Appointments.slot.asc())
+        .all()
+    )
+
+    past_appointments = (
+        Appointments.query
+        .filter(Appointments.date < today, Appointments.user_id==session['user_id'])
+        .order_by(Appointments.date.desc(), Appointments.slot.desc())
+        .all()
+    )
+    user = User.query.filter_by(id=session['user_id']).first()
+    return render_template('history.html', title="History", active_appointments=active_appointments, past_appointments=past_appointments, user=user)
 
 
 @app.route('/founder')
 def founder():
+    if 'user_id' in session:
+        user = User.query.filter_by(id=session['user_id']).first()
+        return render_template('founder.html', title = "Founder", user=user)
     return render_template("founder.html", title="Founder")
 
 
@@ -133,8 +163,8 @@ def booking():
             success=True,
             message="Booking confirmed"
         ), 200
-
-    return render_template("booking.html", title="booking")
+    user = User.query.filter_by(id=session['user_id']).first()
+    return render_template("booking.html", title="booking", user=user)
 
 
 @app.route('/logout')
@@ -153,7 +183,10 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
-            return redirect(url_for('booking'))
+            if user.role == 1:
+                return redirect(url_for('booking'))
+            else:
+                return redirect(url_for('admin_dashboard'))
         flash('Invalid email or password.', 'error')
     return render_template('login.html')
 
@@ -178,6 +211,43 @@ def signup():
             flash('Username or email already exists.', 'error')
             print(e)
     return render_template('signup.html')
+
+
+@app.route('/admin-dashboard')
+def admin_dashboard():
+    if 'user_id' not in session:
+        flash('Please log in.', 'error')
+        return redirect(url_for('login'))
+
+    user = User.query.get(session['user_id'])
+
+    if not user or user.role not in (0, 2):
+        flash('Access denied. Admins and Employees only.', 'error')
+        return redirect(url_for('booking'))
+
+    today = datetime.now().date()
+
+    active_appointments = (
+        Appointments.query
+        .filter(Appointments.date >= today)
+        .order_by(Appointments.date.asc(), Appointments.slot.asc())
+        .all()
+    )
+
+    past_appointments = (
+        Appointments.query
+        .filter(Appointments.date < today)
+        .order_by(Appointments.date.desc(), Appointments.slot.desc())
+        .all()
+    )
+
+    return render_template(
+        'admin_dashboard.html',
+        title="Admin Dashboard",
+        active_appointments=active_appointments,
+        past_appointments=past_appointments,
+        user=user
+    )
 
 
 if __name__ == "__main__":

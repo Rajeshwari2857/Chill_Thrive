@@ -16,48 +16,38 @@
      <link rel="stylesheet" href="{{ url_for('static', filename='css/scroll_animations.css') }}">
 </head>
 <body>
-    <!-- Loading Screen - wpp.html content -->
-    <div id="loading-screen" class="loading-screen-wpp">
-        <div class="hero-section-loading">
-            <div class="background-image-loading"></div>
-            
-           <div class="logo-loading">CHILL THRIVE</div>
-            
-            <div class="scroll-container-loading">
-                <div class="scroll-text-loading">IT'S THE MIND THAT MAKES THE DIFFERENCE</div>
-            </div>
-        </div>
-        <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
-    </div>
     <!-- Navigation -->
     <header>
         <div class="navbar">
             <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
             <nav class="navbar">
-                    <a href="#" class="logo">Chill Thrive</a>
+                    <a href="{{ url_for('chill_thrive') }}" class="logo">Chill Thrive</a>
 
                 <ul>
-                    <li><a href="#home">HOME</a></li>
-                    <li><a href="#discover">DISCOVER</a></li>
-                    <li><a href="#services">SERVICES</a></li>
-                    <li><a href="#booking">BOOKING</a></li>
-                    <li><a href="#events">EVENTS</a></li>
-                    <li><a href="#reviews">REVIEW</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#discover">DISCOVER</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#services">SERVICES</a></li>
+                    {% if user %}
+                        {% if user.role == 1 %}
+                            <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                            <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                        <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
                     <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
-                    <li class="contact-nav-item">
-                        <a href="#contact" class="contact-nav-link">CONTACT US</a>
-                        <div class="contact-dropdown-menu">
-                            <div class="dropdown-item">
-                                <h4>📧 Email</h4>
-                                <a href="mailto:info@chillthrive.com">info@chillthrive.com</a>
-                            </div>
-                            <div class="dropdown-item">
-                                <h4>📱 Phone</h4>
-                                <a href="tel:+915554123467">+91 5554123467</a>
-                            </div>>
-                            <a href="#contact">CONTACT US</a></li>
-                 </ul>
+                    <li><a href="{{ url_for('chill_thrive') }}#contact_us">CONTACT US</a></li>
+                    {% if user %}
+                        {% if user.role == 0 or user.role == 2 %}
+                            <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
+                        {% endif %}
+                        <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
+                    {% endif %}
+
             </nav>
         </div>
     </header>
@@ -309,13 +299,12 @@
                     <span class="star">★</span>
                     <span class="star">★</span>
                     <span class="star">★</span>
-                    <span class="star">★</span>
                 </div>
                 <p class="testimonial-text">
-                    "Absolutely wonderful experience! The Swedish massage was incredibly relaxing and the staff was so professional. I left feeling completely rejuvenated."
+                    "Absolutely wonderful experience! The Ice bath was incredibly relaxing and the staff was so professional. I left feeling completely rejuvenated."
                 </p>
                 <div class="client-info">
-                    <div class="client-name">Sarah Johnson</div>
+                    <div class="client-name">Anjali Mehta</div>
                     <div class="client-date">2 weeks ago</div>
                 </div>
             </div>
@@ -326,13 +315,12 @@
                     <span class="star">★</span>
                     <span class="star">★</span>
                     <span class="star">★</span>
-                    <span class="star">★</span>
                 </div>
                 <p class="testimonial-text">
-                    "The hot stone therapy exceeded all my expectations. The ambiance was perfect and the therapist was highly skilled. Highly recommend!"
+                    "The Jacuzzi exceeded all my expectations. The ambiance was perfect and the therapist was highly skilled. Highly recommend!"
                 </p>
                 <div class="client-info">
-                    <div class="client-name">Michael Chen</div>
+                    <div class="client-name">Yatharth</div>
                     <div class="client-date">1 month ago</div>
                 </div>
             </div>
@@ -346,10 +334,10 @@
                     <span class="star">★</span>
                 </div>
                 <p class="testimonial-text">
-                    "My luxury facial was amazing! My skin has never looked better. The products they use are top quality and the service is impeccable."
+                    "The combo was immaculate. The products they use are top quality and the service is impeccable."
                 </p>
                 <div class="client-info">
-                    <div class="client-name">Emily Rodriguez</div>
+                    <div class="client-name">Krisha</div>
                     <div class="client-date">3 weeks ago</div>
                 </div>
             </div>

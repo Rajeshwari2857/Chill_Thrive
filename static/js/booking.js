@@ -229,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const content = document.getElementById('modal-content');
 
         content.innerHTML = `
+            <p style="font-weight:600; color:#16a34a;">✅ Booking Confirmed</p>
             <p><strong>Service:</strong> ${data.service.toUpperCase().replace('-', ' ')}</p>
             <p><strong>Date:</strong> ${data.date}</p>
             <p><strong>Time:</strong> ${data.time}</p>
@@ -236,13 +237,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         modal.style.display = 'flex';
 
-        // Close handlers
-        document.getElementById('modal-ok').onclick = closeModal;
-        document.getElementById('close-modal').onclick = closeModal;
+        const redirectToHistory = () => {
+            window.location.href = '/history';
+        };
 
-        function closeModal() {
-            modal.style.display = 'none';
-        }
+        // Redirect ONLY on success
+        document.getElementById('modal-ok').onclick = redirectToHistory;
+        document.getElementById('close-modal').onclick = redirectToHistory;
     }
 
     function showFailureMessage(message) {

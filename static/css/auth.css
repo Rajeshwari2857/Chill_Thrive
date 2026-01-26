@@ -1,10 +1,98 @@
 .form-box {
     height: 100%;
-    margin: 4rem;
+    margin-top: 7rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 form {
     display: flex;
     flex-direction: column;
+}
+/* Table container */
+.table-responsive {
+    width: 100%;
+    max-width: 1000px;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    overflow-x: auto;
+}
+
+/* Table base */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Montserrat', sans-serif;
+    color: #051f45;
+}
+
+/* Table header */
+.table thead {
+    background: #051f45; /* dark blue */
+}
+
+.table thead th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Table body rows */
+.table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* Table cells */
+.table td {
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+/* Center important columns */
+.table td:first-child,
+.table th:first-child {
+    text-align: center;
+    width: 120px;
+}
+
+/* Date column slightly muted */
+.table td:last-child {
+    color: #475569;
+    font-weight: 500;
+}
+
+/* Appointment title */
+.form-box h1 {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        padding: 1rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px 10px;
+        font-size: 0.85rem;
+    }
 }
 

@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chill_thrive.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/scroll_animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
 </head>
 <body>
     <!-- Navigation -->
@@ -23,28 +25,21 @@
             <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
             <nav class="navbar">
-                    <a href="#" class="logo">Chill Thrive</a>
+                    <a href="{{ url_for('chill_thrive') }}" class="logo">Chill Thrive</a>
 
                 <ul>
-                    <li><a href="#home">HOME</a></li>
-                    <li><a href="#discover">DISCOVER</a></li>
-                    <li><a href="#services">SERVICES</a></li>
-                    <li><a href="#booking">BOOKING</a></li>
-                    <li><a href="#events">EVENTS</a></li>
-                    <li><a href="#reviews">REVIEW</a></li>
+                   <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#discover">DISCOVER</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#services">SERVICES</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
                     <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
-                    <li class="contact-nav-item">
-                        <a href="#contact" class="contact-nav-link">CONTACT US</a>
-                        <div class="contact-dropdown-menu">
-                            <div class="dropdown-item">
-                                <h4>📧 Email</h4>
-                                <a href="mailto:info@chillthrive.com">info@chillthrive.com</a>
-                            </div>
-                            <div class="dropdown-item">
-                                <h4>📱 Phone</h4>
-                                <a href="tel:+915554123467">+91 5554123467</a>
-                            </div>>
-                            <a href="#contact">CONTACT US</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#contact_us">CONTACT US</a></li>
+                    {% if user %}
+                        {% if user.role == 0 or user.role == 2 %}
+                            <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
+                        {% endif %}
+                    {% endif %}
                  </ul>
             </nav>
         </div>
