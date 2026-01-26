@@ -183,7 +183,10 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
-            return redirect(url_for('booking'))
+            if user.role == 1:
+                return redirect(url_for('booking'))
+            else:
+                return redirect(url_for('admin_dashboard'))
         flash('Invalid email or password.', 'error')
     return render_template('login.html')
 
