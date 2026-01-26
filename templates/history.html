@@ -26,9 +26,11 @@
                     <a href="{{ url_for('chill_thrive') }}" class="logo">Chill Thrive</a>
 
                 <ul>
-                   <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#discover">DISCOVER</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#services">SERVICES</a></li>
+                    <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                    <li><a href="{{ url_for('history') }}">HISTORY</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
                     <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
@@ -37,49 +39,53 @@
             </nav>
         </div>
     </header>
-     <div class="form-box">
-          <h2>Sign Up</h2>
-          <form
-            method="POST"
-            action="{{ url_for('signup') }}"
-            enctype="multipart/form-data"
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              required
-            />
-
-            <input
-              type="number"
-              name="phone"
-              placeholder="Phone Number"
-              required
-            /> 
-
-            <input type="text"
-            name="email" 
-            placeholder="Email" 
-            required
-            />
-
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-            />
-            
-            <button type="submit">Sign Up</button>
-          </form>
-          <p>
-            Already have an account?
-            <a href="{{ url_for('login') }}">Login</a>
-          </p>
+    <div class="form-box">
+        <!--appointments of user-->
+        <h1>Appointment History</h1>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Appointment ID</th>
+                <th>Recovery Path</th>
+                <th>Slot</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appointment in appointments %}
+              <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{% if appointment.recovery_path == 1 %}
+                        Ice Bath
+                    {% elif appointment.recovery_path == 2 %}
+                        Jacuzzi
+                    {% elif appointment.recovery_path == 3 %}
+                        Steam Bath
+                    {% elif appointment.recovery_path == 4 %}
+                        Full Combo
+                    {% endif %}
+                </td>
+                <td>{% if appointment.slot == 1 %}
+                        9 AM
+                    {% elif appointment.slot == 2 %}
+                        12 PM
+                    {% elif appointment.slot == 3 %}
+                        3 PM
+                    {% elif appointment.slot == 4 %}
+                        6 PM
+                    {% endif %}
+                </td>
+                <td>{{ appointment.date.strftime('%d-%m-%Y') }}</td>
+            </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
+     
+    </div>
     <hr>
-     <footer id="contact" class="footer-container">
+    <footer id="contact" class="footer-container">
             <div class="footer-content">
                 <div>
                     <div class="footer-section">

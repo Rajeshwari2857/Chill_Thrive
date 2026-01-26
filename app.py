@@ -60,6 +60,16 @@ def chill_thrive():
     return render_template('chill_thrive.html', user_logged_in=user_logged_in)
 
 
+@app.route('/history')
+def history():
+    if 'user_id' not in session:
+        flash('Please log in to book an appointment.', 'error')
+        return redirect(url_for('login'))
+    # gives list of appointments of the user in session
+    appointments = Appointments.query.filter_by(user_id=session['user_id']).all()
+    return render_template('history.html', title="History", appointments=appointments)
+
+
 @app.route('/founder')
 def founder():
     return render_template("founder.html", title="Founder")
