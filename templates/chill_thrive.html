@@ -4,42 +4,50 @@
     <meta charset="UTF-8">
     <title>CHILL THRIVE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chill_thrive.css') }}">
      <link rel="stylesheet" href="{{ url_for('static', filename='css/scroll_animations.css') }}">
 </head>
 <body>
-    <!-- Loading Screen - wpp.html content -->
-    <div id="loading-screen" class="loading-screen-wpp">
-        <div class="hero-section-loading">
-            <div class="background-image-loading"></div>
-            
-           <div class="logo-loading">CHILL THRIVE</div>
-            
-            <div class="scroll-container-loading">
-                <div class="scroll-text-loading">IT'S THE MIND THAT MAKES THE DIFFERENCE</div>
-            </div>
-        </div>
-        <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
-    </div>
     <!-- Navigation -->
     <header>
         <div class="navbar">
             <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
             <nav class="navbar">
-                    <a href="#" class="logo">Chill Thrive</a>
+                    <a href="{{ url_for('chill_thrive') }}" class="logo">Chill Thrive</a>
 
                 <ul>
-                    <li><a href="#home">HOME</a></li>
-                    <li><a href="#discover">DISCOVER</a></li>
-                    <li><a href="#services">SERVICES</a></li>
-                    <li><a href="#booking">BOOKING</a></li>
-                    <li><a href="#events">EVENTS</a></li>
-                    <li><a href="#reviews">REVIEW</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#discover">DISCOVER</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#services">SERVICES</a></li>
+                    {% if user %}
+                        {% if user.role == 1 %}
+                            <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                            <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                        <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
                     <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
-                    <li><a href="#contact">CONTACT US</a></li>
-                 </ul>
+                    <li><a href="{{ url_for('chill_thrive') }}#contact_us">CONTACT US</a></li>
+                    {% if user %}
+                        {% if user.role == 0 or user.role == 2 %}
+                            <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
+                        {% endif %}
+                        <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
+                    {% endif %}
+
             </nav>
         </div>
     </header>
@@ -56,7 +64,11 @@
             <p class="subtext">Rejuvenate your body. Reset your mind.</p>
             
             <div class="hero-btns">
-                <a href="#booking" class="btn-primary">Book a Session</a>
+                {% if user_logged_in %}
+                <a href="{{ url_for('booking') }}" class="btn-primary">Book a Session</a>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="btn-primary">Book a Session</a>
+                {% endif %}
                 <a href="#services" class="btn-secondary">Explore Services</a>
             </div>
         </div>
@@ -190,107 +202,6 @@
     </div>
 <script src="{{ url_for('static', filename='js/services.js') }}"></script>
 </section> 
- <section id="booking" class="booking-experience">
-        <div class="container">
-            <div class="section-header">
-                <span class="eyebrow">READY TO OPTIMIZE?</span>
-                <h2>Start Your Recovery Journey</h2>
-                <p>Select your path to resilience and high performance</p>
-                <div class="header-line"></div>
-            </div>
-
-            <div class="booking-wrapper">
-                <div class="step-bar">
-                    <div class="step active" data-step="1"><span>1</span><p>Therapy</p></div>
-                    <div class="step" data-step="2"><span>2</span><p>Time</p></div>
-                    <div class="step" data-step="3"><span>3</span><p>Details</p></div>
-                </div>
-
-                <form id="booking-form" class="interactive-form">
-                    <div class="form-step active" id="step-1">
-                        <h3 class="step-title">Choose Your Recovery Path</h3>
-                        <div class="service-selection-grid">
-                            <label class="service-card">
-                                <input type="radio" name="service" value="ice-bath" required>
-                                <div class="card-inner">
-                                    <div class="icon">❄️</div>
-                                    <h4>Ice Bath</h4>
-                                    <p>30/60 min immersion</p>
-                                </div>
-                            </label>
-                            <label class="service-card">
-                                <input type="radio" name="service" value="jacuzzi" required>
-                                <div class="card-inner">
-                                    <div class="icon">🫧</div>
-                                    <h4>Jacuzzi</h4>
-                                    <p>Warm hydro-relaxation</p>
-                                </div>
-                            </label>
-                            <label class="service-card">
-                                <input type="radio" name="service" value="steam" required>
-                                <div class="card-inner">
-                                    <div class="icon">💨</div>
-                                    <h4>Steam Bath</h4>
-                                    <p>Detoxifying heat</p>
-                                </div>
-                            </label>
-                            <label class="service-card highlight">
-                                <input type="radio" name="service" value="combo" required>
-                                <div class="card-inner">
-                                    <span class="badge">Best Value</span>
-                                    <div class="icon">⚡</div>
-                                    <h4>Full Combo</h4>
-                                    <p>Ice + Steam + Jacuzzi</p>
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-step" id="step-2">
-                        <h3 class="step-title">Select Your Slot</h3>
-                        <div class="datetime-grid">
-                            <div class="input-wrap">
-                                <label>Preferred Date</label>
-                                <input type="date" name="date" required>
-                            </div>
-                            <div class="time-slots">
-                                <label class="slot-btn">
-                                    <input type="radio" name="time" value="09:00" required>
-                                    <span>09:00 AM</span>
-                                </label>
-                                <label class="slot-btn">
-                                    <input type="radio" name="time" value="12:00" required>
-                                    <span>12:00 PM</span>
-                                </label>
-                                <label class="slot-btn">
-                                    <input type="radio" name="time" value="15:00" required>
-                                    <span>03:00 PM</span>
-                                </label>
-                                <label class="slot-btn">
-                                    <input type="radio" name="time" value="18:00" required>
-                                    <span>06:00 PM</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-step" id="step-3">
-                        <h3 class="step-title">Personal Information</h3>
-                        <div class="details-grid">
-                            <input type="text" name="name" placeholder="Full Name" required>
-                            <input type="tel" name="phone" placeholder="Phone Number" required>
-                            <input type="email" name="email" placeholder="Email Address" required>
-                        </div>
-                        <div class="payment-infobox">
-                            <p>📍 Payment will be handled at the venue via Cash or QR</p>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
-      <script src="{{ url_for('static', filename='js/booking.js') }}"></script>       
       
     <section id="events" class="events-section">
         
@@ -388,13 +299,12 @@
                     <span class="star">★</span>
                     <span class="star">★</span>
                     <span class="star">★</span>
-                    <span class="star">★</span>
                 </div>
                 <p class="testimonial-text">
-                    "Absolutely wonderful experience! The Swedish massage was incredibly relaxing and the staff was so professional. I left feeling completely rejuvenated."
+                    "Absolutely wonderful experience! The Ice bath was incredibly relaxing and the staff was so professional. I left feeling completely rejuvenated."
                 </p>
                 <div class="client-info">
-                    <div class="client-name">Sarah Johnson</div>
+                    <div class="client-name">Anjali Mehta</div>
                     <div class="client-date">2 weeks ago</div>
                 </div>
             </div>
@@ -405,13 +315,12 @@
                     <span class="star">★</span>
                     <span class="star">★</span>
                     <span class="star">★</span>
-                    <span class="star">★</span>
                 </div>
                 <p class="testimonial-text">
-                    "The hot stone therapy exceeded all my expectations. The ambiance was perfect and the therapist was highly skilled. Highly recommend!"
+                    "The Jacuzzi exceeded all my expectations. The ambiance was perfect and the therapist was highly skilled. Highly recommend!"
                 </p>
                 <div class="client-info">
-                    <div class="client-name">Michael Chen</div>
+                    <div class="client-name">Yatharth</div>
                     <div class="client-date">1 month ago</div>
                 </div>
             </div>
@@ -425,10 +334,10 @@
                     <span class="star">★</span>
                 </div>
                 <p class="testimonial-text">
-                    "My luxury facial was amazing! My skin has never looked better. The products they use are top quality and the service is impeccable."
+                    "The combo was immaculate. The products they use are top quality and the service is impeccable."
                 </p>
                 <div class="client-info">
-                    <div class="client-name">Emily Rodriguez</div>
+                    <div class="client-name">Krisha</div>
                     <div class="client-date">3 weeks ago</div>
                 </div>
             </div>
@@ -469,13 +378,15 @@
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
-                                <span>123 Wellness Avenue, Spa City, SC 12345</span>
+                                <span>
+                                    Plot No - 3, Beside Avalon Buss Hub, Vesu, Near Indian Bank, SD Jain School Lane, Piplod, Surat-395007, Gujarat
+                                </span>
                             </div>
                             <div class="contact-item">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                                 </svg>
-                                <a href="tel:+15551234567">+1 (555) 123-4567</a>
+                                <a href="tel:+915554123467">+91 5554123467</a>
                             </div>
                             <div class="contact-item">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

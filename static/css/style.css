@@ -35,7 +35,6 @@ body {
 
 /* ==========================================
    HEADER & HERO SECTION change...
-
    ========================================== */
 header.detail-hero-img {
     position: relative;
@@ -49,6 +48,19 @@ header.detail-hero-img {
     justify-content: flex-start;
     padding: 2.5rem;
     overflow: hidden;
+    
+}
+.detail-hero-jacuzzi {
+    background-image: url('/static/images/jacuzzi.jpg');
+}
+
+.detail-hero-steam-bath {
+    background-image: url('/static/images/steam_bath.jpg');
+}
+
+
+.detail-hero-ice-bath {
+    background-image: url('/static/images/ice_bath.jpg');
 }
 
 header.detail-hero-img::before {

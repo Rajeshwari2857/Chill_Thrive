@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CHILL THRIVE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chill_thrive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/scroll_animations.css') }}">
+
+    <style>
+        .container {
+        margin-top: 8rem;
+        margin-bottom: 2rem;
+        }
+
+        /* Overlay */
+        .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        }
+
+        /* Modal box */
+        .modal {
+        background: #fff;
+        border-radius: 12px;
+        padding: 24px;
+        width: 90%;
+        max-width: 420px;
+        position: relative;
+        animation: scaleIn 0.25s ease;
+        }
+
+        /* Close button */
+        .modal-close {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        font-size: 22px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        }
+
+        /* Content */
+        .modal h2 {
+        margin-bottom: 16px;
+        }
+
+        .modal-content p {
+        margin: 6px 0;
+        font-size: 15px;
+        }
+
+        /* Action button */
+        .modal-btn {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background: #0c507a;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+   <!-- Navigation -->
+    <header>
+        <div class="navbar">
+            <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+            <nav class="navbar">
+                    <a href="{{ url_for('chill_thrive') }}" class="logo">Chill Thrive</a>
+
+                <ul>
+                    <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#discover">DISCOVER</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#services">SERVICES</a></li>
+                    {% if user %}
+                        {% if user.role == 1 %}
+                            <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                            <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                        <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
+                    <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#contact_us">CONTACT US</a></li>
+                    {% if user %}
+                        {% if user.role == 0 or user.role == 2 %}
+                            <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
+                        {% endif %}
+                        <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
+                    {% endif %}
+                 </ul>
+            </nav>
+        </div>
+    </header>
+ <section id="booking" class="booking-experience">
+        <div class="container">
+        <div class="section-header">
+            <span class="eyebrow">READY TO OPTIMIZE?</span>
+            <h2>Start Your Recovery Journey</h2>
+            <p>Select your path to resilience and high performance</p>
+            <div class="header-line"></div>
+        </div>
+
+        <div class="booking-wrapper">
+            <div class="step-bar">
+                <div class="step active" data-step="1"><span>1</span><p>Therapy</p></div>
+                <div class="step" data-step="2"><span>2</span><p>Time</p></div>
+            </div>
+
+            <form id="booking-form" class="interactive-form" action="/booking">
+                <!-- STEP 1: SERVICE SELECTION -->
+                <div class="form-step active" id="step-1">
+                    <h3 class="step-title">Choose Your Recovery Path</h3>
+                    <div class="service-selection-grid">
+                        <label class="service-card">
+                            <input type="radio" name="service" value="ice-bath" required>
+                            <div class="card-inner">
+                                <div class="icon">❄️</div>
+                                <h4>Ice Bath</h4>
+                                <p>30/60 min immersion</p>
+                            </div>
+                        </label>
+                        <label class="service-card">
+                            <input type="radio" name="service" value="jacuzzi" required>
+                            <div class="card-inner">
+                                <div class="icon">🫧</div>
+                                <h4>Jacuzzi</h4>
+                                <p>Warm hydro-relaxation</p>
+                            </div>
+                        </label>
+                        <label class="service-card">
+                            <input type="radio" name="service" value="steam" required>
+                            <div class="card-inner">
+                                <div class="icon">💨</div>
+                                <h4>Steam Bath</h4>
+                                <p>Detoxifying heat</p>
+                            </div>
+                        </label>
+                        <label class="service-card highlight">
+                            <input type="radio" name="service" value="combo" required>
+                            <div class="card-inner">
+                                <span class="badge">Best Value</span>
+                                <div class="icon">⚡</div>
+                                <h4>Full Combo</h4>
+                                <p>Ice + Steam + Jacuzzi</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- STEP 2: TIME SELECTION -->
+                <div class="form-step" id="step-2">
+                    <h3 class="step-title">Select Your Slot</h3>
+                    <div class="datetime-grid">
+                        <div class="input-wrap">
+                            <label>Preferred Date</label>
+                            <input type="date" name="date" required>
+                        </div>
+                        <div class="time-slots">
+                            <label class="slot-btn">
+                                <input type="radio" name="time" value="09:00" required>
+                                <span>09:00 AM</span>
+                            </label>
+                            <label class="slot-btn">
+                                <input type="radio" name="time" value="12:00" required>
+                                <span>12:00 PM</span>
+                            </label>
+                            <label class="slot-btn">
+                                <input type="radio" name="time" value="15:00" required>
+                                <span>03:00 PM</span>
+                            </label>
+                            <label class="slot-btn">
+                                <input type="radio" name="time" value="18:00" required>
+                                <span>06:00 PM</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    </section>
+
+      <script src="{{ url_for('static', filename='js/booking.js') }}"></script>       
+    <hr>
+     <footer id="contact" class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-section">
+                        <h2>CHILL THRIVE</h2>
+                        <p>Your sanctuary for relaxation and wellness. We're dedicated to providing the finest spa treatments in a serene environment.</p>
+                    </div>
+                    <div class="footer-section opening-hours">
+                        <h2>Opening Hours</h2>
+                        <div class="hours-info">
+                            <div class="hours-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <div class="hours-time">
+                                    <span>Monday - Friday: 9:00 AM - 8:00 PM</span>
+                                    <span>Saturday: 10:00 AM - 6:00 PM</span>
+                                    <span>Sunday: 10:00 AM - 5:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="footer-section">
+                        <h2>Contact Us</h2>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>Plot No - 3, Beside Avalon Buss Hub, Vesu, Near Indian Bank, SD Jain School Lane, Piplod, Surat-395007, Gujarat
+                                </span>
+                            </div>
+                            <div class="contact-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                <a href="tel:+915554123467">+91 5554123467</a>
+                            </div>
+                            <div class="contact-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                                </svg>
+                                <a href="mailto:info@chillthrive.com">info@chillthrive.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-section">
+                        <h2>Follow Us</h2>
+                        <div class="social-icons">
+                            <a href="#" title="Facebook" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" title="Instagram" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" title="Twitter" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <p class="follow-text">Stay updated with our latest offers and wellness tips!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Divider -->
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+            <p>&copy; 2026 Chill Thrive. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal-overlay">
+        <div class="modal">
+            <button class="modal-close" id="close-modal">&times;</button>
+
+            <h2>✅ Booking Confirmed</h2>
+
+            <div class="modal-content" id="modal-content">
+            <!-- injected by JS -->
+            </div>
+
+            <button class="modal-btn" id="modal-ok">Done</button>
+        </div>
+    </div>
+
+        <script src="{{ url_for('static', filename='js/events.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/scroll_animations.js') }}"></script>
+
+    </body>
+</html>

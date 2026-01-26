@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Founder | Chill Thrive</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/founder.css') }}">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -16,17 +17,31 @@
             <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
             <nav class="navbar">
-                    <a href="#" class="logo">Chill Thrive</a>
+                    <a href="{{ url_for('chill_thrive') }}" class="logo">Chill Thrive</a>
 
                 <ul>
                     <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#discover">DISCOVER</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#services">SERVICES</a></li>
-                    <li><a href="{{ url_for('chill_thrive') }}#booking">BOOKING</a></li>
+                    {% if user %}
+                        {% if user.role == 1 %}
+                            <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                            <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
+                        <li><a href="{{ url_for('history') }}">HISTORY</a></li>
+                    {% endif %}
                     <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
-                    <li><a href="{{ url_for('chill_thrive') }}#founders">FOUNDERS</a></li>
+                    <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#contact_us">CONTACT US</a></li>
+                    {% if user %}
+                        {% if user.role == 0 or user.role == 2 %}
+                            <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
+                        {% endif %}
+                        <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
+                    {% endif %}
                  </ul>
             </nav>
         </div>
