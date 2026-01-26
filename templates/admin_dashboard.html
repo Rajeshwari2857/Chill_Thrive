@@ -41,10 +41,13 @@
                     <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
                     <li><a href="{{ url_for('founder') }}">FOUNDERS</a></li>
-                    <li><a href="{{ url_for('chill_thrive') }}#contact_us">CONTACT US</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#contact">CONTACT US</a></li>
                     {% if user %}
                         {% if user.role == 0 or user.role == 2 %}
                             <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
+                            {% if user.role == 0 %}
+                                <li><a href="{{ url_for('add_employee') }}">ADD EMPLOYEE</a></li>
+                            {% endif %}
                         {% endif %}
                         <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
                     {% endif %}
@@ -210,14 +213,11 @@
                     <div class="footer-section">
                         <h2>Follow Us</h2>
                         <div class="social-icons">
-                            <a href="#" title="Facebook" aria-label="Facebook">
-                                <i class="fab fa-facebook-f"></i>
+                            <a href="https://www.youtube.com/@ChillThrive" title="Youtube" aria-label="Youtube">
+                                <i class="fab fa-youtube"></i>
                             </a>
-                            <a href="#" title="Instagram" aria-label="Instagram">
+                            <a href="https://www.instagram.com/chill.thrive/" title="Instagram" aria-label="Instagram">
                                 <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" title="Twitter" aria-label="Twitter">
-                                <i class="fab fa-twitter"></i>
                             </a>
                         </div>
                         <p class="follow-text">Stay updated with our latest offers and wellness tips!</p>

@@ -114,6 +114,38 @@ def ice_bath():
     return render_template("ice_bath.html", title = "Ice bath")
 
 
+@app.route("/add-employee", methods = ['GET', 'POST'])
+def add_employee():
+    if 'user_id' not in session:
+        flash('Please log in to book an appointment.', 'error')
+        return redirect(url_for('login'))
+    user = User.query.filter_by(id=session['user_id']).first()
+    if user.role != 0:
+        flash('Not permitted', 'error')
+        return redirect('admin_dashboard')
+    
+    employees = User.query.filter_by(role=2).all()
+    
+    if request.method == 'POST':
+        name = request.form['name']
+        phone = request.form['phone']
+        email = request.form['email']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password)
+
+        try:
+            new_user = User(email=email, name=name, phone=phone,
+                            password=hashed_password, role=2)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Employee added successfully!', 'success')
+            return redirect(url_for('add_employee'))
+        except Exception as e:
+            flash('Username or email already exists.', 'error')
+            print(e)
+    return render_template("add_employee.html", title = "Add Employee", user=user, employees=employees)
+
+
 @app.route("/steam_bath")
 def steam_bath():
     return render_template("steam_bath.html", title = "Steam bath")
@@ -253,6 +285,10 @@ def admin_dashboard():
         user=user
     )
 
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html"), 404
 
 
 if __name__ == "__main__":

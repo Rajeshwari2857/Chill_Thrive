@@ -15,8 +15,33 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chill_thrive.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/scroll_animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+    <style>
+        .error-box {
+            margin-top: 8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 0vh;
+        }
+        h1 {
+            color: #fff;
+            padding: 4rem;
+            text-shadow:
+                1px 1px 0 #0a4db3,
+                2px 2px 0 #0a4db3,
+                3px 3px 0 #0a4db3,
+                4px 4px 0 #0a4db3,
+                5px 5px 0 #0a4db3,
+                6px 6px 0 #0a4db3;
+
+            font-weight: 900;
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation -->
     <!-- Navigation -->
     <header>
         <div class="navbar">
@@ -41,112 +66,22 @@
                     <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
                     <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
-                    <li><a href="{{ url_for('chill_thrive') }}#contact">CONTACT US</a></li>
+                    <li><a href="{{ url_for('chill_thrive') }}#contact_us">CONTACT US</a></li>
                     {% if user %}
                         {% if user.role == 0 or user.role == 2 %}
                             <li><a href="{{ url_for('admin_dashboard') }}">DASHBOARD</a></li>
-                            {% if user.role == 0 %}
-                                <li><a href="{{ url_for('add_employee') }}">ADD EMPLOYEE</a></li>
-                            {% endif %}
                         {% endif %}
                         <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
                     {% endif %}
-                 </ul>
+
             </nav>
         </div>
     </header>
-    <div class="form-box">
-        <!--appointments of user-->
-        <h1>Upcoming Appointments</h1>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Appointment ID</th>
-                <th>Recovery Path</th>
-                <th>Slot</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for appointment in active_appointments %}
-              <tr>
-                <td>{{ appointment.id }}</td>
-                <td>{% if appointment.recovery_path == 1 %}
-                        Ice Bath
-                    {% elif appointment.recovery_path == 2 %}
-                        Jacuzzi
-                    {% elif appointment.recovery_path == 3 %}
-                        Steam Bath
-                    {% elif appointment.recovery_path == 4 %}
-                        Full Combo
-                    {% endif %}
-                </td>
-                <td>{% if appointment.slot == 1 %}
-                        9 AM
-                    {% elif appointment.slot == 2 %}
-                        12 PM
-                    {% elif appointment.slot == 3 %}
-                        3 PM
-                    {% elif appointment.slot == 4 %}
-                        6 PM
-                    {% endif %}
-                </td>
-                <td>{{ appointment.date.strftime('%d-%m-%Y') }}</td>
-            </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-     
+   
+    <div class="error-box">
+        <h1>404 - Page Not Found :(</h1>
     </div>
-    <hr>
-    <div class="form-box" style="margin-top: 0.25rem;">
-        <!--appointments of user-->
-        <h1>Appointment History</h1>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Appointment ID</th>
-                <th>Recovery Path</th>
-                <th>Slot</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for appointment in past_appointments %}
-              <tr>
-                <td>{{ appointment.id }}</td>
-                <td>{% if appointment.recovery_path == 1 %}
-                        Ice Bath
-                    {% elif appointment.recovery_path == 2 %}
-                        Jacuzzi
-                    {% elif appointment.recovery_path == 3 %}
-                        Steam Bath
-                    {% elif appointment.recovery_path == 4 %}
-                        Full Combo
-                    {% endif %}
-                </td>
-                <td>{% if appointment.slot == 1 %}
-                        9 AM
-                    {% elif appointment.slot == 2 %}
-                        12 PM
-                    {% elif appointment.slot == 3 %}
-                        3 PM
-                    {% elif appointment.slot == 4 %}
-                        6 PM
-                    {% endif %}
-                </td>
-                <td>{{ appointment.date.strftime('%d-%m-%Y') }}</td>
-            </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-     
-    </div>
-    <hr>
+    
     <footer id="contact" class="footer-container">
             <div class="footer-content">
                 <div>
@@ -202,13 +137,13 @@
                     <div class="footer-section">
                         <h2>Follow Us</h2>
                         <div class="social-icons">
-                           <a href="https://www.youtube.com/@ChillThrive" title="Youtube" aria-label="Youtube">
-                                <i class="fab fa-youtube"></i>
+                            <a href="https://www.youtube.com/@ChillThrive" title="Youtube" aria-label="Youtube">
+                                <i class="fab fa-Youtube-f"></i>
                             </a>
                             <a href="https://www.instagram.com/chill.thrive/" title="Instagram" aria-label="Instagram">
-                                <i class="fab fa-instagram"></i>
+                                <i class="fab fa-instagram">
                             </a>
-                            <div>
+                        </div>
                         <p class="follow-text">Stay updated with our latest offers and wellness tips!</p>
                     </div>
                 </div>
