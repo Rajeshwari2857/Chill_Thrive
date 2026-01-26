@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    const RECOVERY_PATH_MAP = {
+        "ice-bath": 1,
+        "jacuzzi": 2,
+        "steam": 3,
+        "combo": 4
+    };
+
+    const SLOT_MAP = {
+        "09:00": 1,
+        "12:00": 2,
+        "15:00": 3,
+        "18:00": 4
+    };
+
     const form = document.getElementById('booking-form');
     const steps = document.querySelectorAll('.form-step');
     const stepIndicators = document.querySelectorAll('.step');
@@ -141,41 +156,111 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addFormSubmit() {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Final validation
-            if (!validateCurrentStep()) {
+            if (!validateCurrentStep()) return;
+
+            const formData = new FormData(form);
+
+            // Raw values from form
+            const service = formData.get('service');
+            const time = formData.get('time');
+            const date = formData.get('date');
+
+            // Convert to DB-friendly integers
+            const recovery_path = RECOVERY_PATH_MAP[service];
+            const slot = SLOT_MAP[time];
+
+            if (!recovery_path || !slot) {
+                alert("Invalid selection. Please try again.");
                 return;
             }
 
-            // Collect form data
-            const formData = new FormData(form);
-            const bookingData = {
-                service: formData.get('service'),
-                date: new Date(formData.get('date')).toLocaleDateString(),
-                time: formData.get('time'),
-                name: formData.get('name'),
-                phone: formData.get('phone'),
-                email: formData.get('email'),
-                bookingTime: new Date().toISOString()
+            // Payload matches your SQLAlchemy model
+            const payload = {
+                recovery_path: recovery_path, // INT
+                date: date,                    // YYYY-MM-DD
+                slot: slot                     // INT
             };
 
-            // Log booking data (you can send to server here)
-            console.log('Booking Confirmed:', bookingData);
+            fetch('/booking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(async res => {
+                const data = await res.json();
 
-            // Show success message
-            showSuccessMessage(bookingData);
+                if (!res.ok) {
+                    // Business logic errors (400, 409)
+                    return { error: true, data };
+                }
 
-            // Reset form and go back to step 1
-            form.reset();
-            currentStep = 1;
-            showStep(currentStep);
+                return { error: false, data };
+            })
+            .then(result => {
+                if (result.error) {
+                    showFailureMessage(result.data.message);
+                    return;
+                }
+
+                showSuccessMessage({
+                    service,
+                    date,
+                    time
+                });
+
+                form.reset();
+                currentStep = 1;
+                showStep(currentStep);
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Network error. Please try again.");
+            });
         });
     }
 
     function showSuccessMessage(data) {
-        const message = `✅ Booking Confirmed!\n\nService: ${data.service.toUpperCase().replace('-', ' ')}\nDate: ${data.date}\nTime: ${data.time}\nName: ${data.name}\n\nConfirmation email sent to ${data.email}`;
-        alert(message);
+        const modal = document.getElementById('success-modal');
+        const content = document.getElementById('modal-content');
+
+        content.innerHTML = `
+            <p><strong>Service:</strong> ${data.service.toUpperCase().replace('-', ' ')}</p>
+            <p><strong>Date:</strong> ${data.date}</p>
+            <p><strong>Time:</strong> ${data.time}</p>
+        `;
+
+        modal.style.display = 'flex';
+
+        // Close handlers
+        document.getElementById('modal-ok').onclick = closeModal;
+        document.getElementById('close-modal').onclick = closeModal;
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+    }
+
+    function showFailureMessage(message) {
+        const modal = document.getElementById('success-modal');
+        const content = document.getElementById('modal-content');
+
+        content.innerHTML = `
+            <p style="color:#dc2626; font-weight:600;">❌ Booking Failed</p>
+            <p>${message}</p>
+        `;
+
+        modal.style.display = 'flex';
+
+        document.getElementById('modal-ok').onclick = closeModal;
+        document.getElementById('close-modal').onclick = closeModal;
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
     }
 });
