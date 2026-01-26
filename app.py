@@ -72,6 +72,9 @@ def history():
 
 @app.route('/founder')
 def founder():
+    if 'user_id' in session:
+        user = User.query.filter_by(id=session['user.id']).first()
+        return render_template('founder.html', title = "Founder", user=user)
     return render_template("founder.html", title="Founder")
 
 
@@ -188,6 +191,43 @@ def signup():
             flash('Username or email already exists.', 'error')
             print(e)
     return render_template('signup.html')
+
+
+@app.route('/admin-dashboard')
+def admin_dashboard():
+    if 'user_id' not in session:
+        flash('Please log in.', 'error')
+        return redirect(url_for('login'))
+
+    user = User.query.get(session['user_id'])
+
+    if not user or user.role not in (0, 2):
+        flash('Access denied. Admins and Employees only.', 'error')
+        return redirect(url_for('booking'))
+
+    today = datetime.now().date()
+
+    active_appointments = (
+        Appointments.query
+        .filter(Appointments.date >= today)
+        .order_by(Appointments.date.asc(), Appointments.slot.asc())
+        .all()
+    )
+
+    past_appointments = (
+        Appointments.query
+        .filter(Appointments.date < today)
+        .order_by(Appointments.date.desc(), Appointments.slot.desc())
+        .all()
+    )
+
+    return render_template(
+        'admin_dashboard.html',
+        title="Admin Dashboard",
+        active_appointments=active_appointments,
+        past_appointments=past_appointments,
+        user=user
+    )
 
 
 if __name__ == "__main__":

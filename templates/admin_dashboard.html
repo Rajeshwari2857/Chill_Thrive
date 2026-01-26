@@ -13,73 +13,11 @@
     />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chill_thrive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/scroll_animations.css') }}">
-
-    <style>
-        .container {
-        margin-top: 8rem;
-        margin-bottom: 2rem;
-        }
-
-        /* Overlay */
-        .modal-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.6);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        }
-
-        /* Modal box */
-        .modal {
-        background: #fff;
-        border-radius: 12px;
-        padding: 24px;
-        width: 90%;
-        max-width: 420px;
-        position: relative;
-        animation: scaleIn 0.25s ease;
-        }
-
-        /* Close button */
-        .modal-close {
-        position: absolute;
-        top: 10px;
-        right: 12px;
-        font-size: 22px;
-        border: none;
-        background: none;
-        cursor: pointer;
-        }
-
-        /* Content */
-        .modal h2 {
-        margin-bottom: 16px;
-        }
-
-        .modal-content p {
-        margin: 6px 0;
-        font-size: 15px;
-        }
-
-        /* Action button */
-        .modal-btn {
-        margin-top: 20px;
-        width: 100%;
-        padding: 12px;
-        background: #0c507a;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-        }
-    </style>
 </head>
 <body>
-   <!-- Navigation -->
+    <!-- Navigation -->
     <header>
         <div class="navbar">
             <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
@@ -106,99 +44,110 @@
             </nav>
         </div>
     </header>
- <section id="booking" class="booking-experience">
-        <div class="container">
-        <div class="section-header">
-            <span class="eyebrow">READY TO OPTIMIZE?</span>
-            <h2>Start Your Recovery Journey</h2>
-            <p>Select your path to resilience and high performance</p>
-            <div class="header-line"></div>
+    <div class="form-box">
+        <!--appointments of user-->
+        <h1>Upcoming Appointments</h1>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Appointment ID</th>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Recovery Path</th>
+                <th>Slot</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appointment in active_appointments %}
+              <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.customer.id }}</td>
+                <td>{{ appointment.customer.name }}</td>
+                <td>{{ appointment.customer.phone }}</td>
+                <td>{% if appointment.recovery_path == 1 %}
+                        Ice Bath
+                    {% elif appointment.recovery_path == 2 %}
+                        Jacuzzi
+                    {% elif appointment.recovery_path == 3 %}
+                        Steam Bath
+                    {% elif appointment.recovery_path == 4 %}
+                        Full Combo
+                    {% endif %}
+                </td>
+                <td>{% if appointment.slot == 1 %}
+                        9 AM
+                    {% elif appointment.slot == 2 %}
+                        12 PM
+                    {% elif appointment.slot == 3 %}
+                        3 PM
+                    {% elif appointment.slot == 4 %}
+                        6 PM
+                    {% endif %}
+                </td>
+                <td>{{ appointment.date.strftime('%d-%m-%Y') }}</td>
+            </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
-
-        <div class="booking-wrapper">
-            <div class="step-bar">
-                <div class="step active" data-step="1"><span>1</span><p>Therapy</p></div>
-                <div class="step" data-step="2"><span>2</span><p>Time</p></div>
-            </div>
-
-            <form id="booking-form" class="interactive-form" action="/booking">
-                <!-- STEP 1: SERVICE SELECTION -->
-                <div class="form-step active" id="step-1">
-                    <h3 class="step-title">Choose Your Recovery Path</h3>
-                    <div class="service-selection-grid">
-                        <label class="service-card">
-                            <input type="radio" name="service" value="ice-bath" required>
-                            <div class="card-inner">
-                                <div class="icon">❄️</div>
-                                <h4>Ice Bath</h4>
-                                <p>30/60 min immersion</p>
-                            </div>
-                        </label>
-                        <label class="service-card">
-                            <input type="radio" name="service" value="jacuzzi" required>
-                            <div class="card-inner">
-                                <div class="icon">🫧</div>
-                                <h4>Jacuzzi</h4>
-                                <p>Warm hydro-relaxation</p>
-                            </div>
-                        </label>
-                        <label class="service-card">
-                            <input type="radio" name="service" value="steam" required>
-                            <div class="card-inner">
-                                <div class="icon">💨</div>
-                                <h4>Steam Bath</h4>
-                                <p>Detoxifying heat</p>
-                            </div>
-                        </label>
-                        <label class="service-card highlight">
-                            <input type="radio" name="service" value="combo" required>
-                            <div class="card-inner">
-                                <span class="badge">Best Value</span>
-                                <div class="icon">⚡</div>
-                                <h4>Full Combo</h4>
-                                <p>Ice + Steam + Jacuzzi</p>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- STEP 2: TIME SELECTION -->
-                <div class="form-step" id="step-2">
-                    <h3 class="step-title">Select Your Slot</h3>
-                    <div class="datetime-grid">
-                        <div class="input-wrap">
-                            <label>Preferred Date</label>
-                            <input type="date" name="date" required>
-                        </div>
-                        <div class="time-slots">
-                            <label class="slot-btn">
-                                <input type="radio" name="time" value="09:00" required>
-                                <span>09:00 AM</span>
-                            </label>
-                            <label class="slot-btn">
-                                <input type="radio" name="time" value="12:00" required>
-                                <span>12:00 PM</span>
-                            </label>
-                            <label class="slot-btn">
-                                <input type="radio" name="time" value="15:00" required>
-                                <span>03:00 PM</span>
-                            </label>
-                            <label class="slot-btn">
-                                <input type="radio" name="time" value="18:00" required>
-                                <span>06:00 PM</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
+     
+    </div>
+    
+    <div class="form-box" style="margin-top: 0.25rem;">
+        <!--appointments of user-->
+        <h1>Past Appointments</h1>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Appointment ID</th>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Recovery Path</th>
+                <th>Slot</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appointment in past_appointments %}
+              <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.customer.id }}</td>
+                <td>{{ appointment.customer.name }}</td>
+                <td>{{ appointment.customer.phone }}</td>
+                <td>{% if appointment.recovery_path == 1 %}
+                        Ice Bath
+                    {% elif appointment.recovery_path == 2 %}
+                        Jacuzzi
+                    {% elif appointment.recovery_path == 3 %}
+                        Steam Bath
+                    {% elif appointment.recovery_path == 4 %}
+                        Full Combo
+                    {% endif %}
+                </td>
+                <td>{% if appointment.slot == 1 %}
+                        9 AM
+                    {% elif appointment.slot == 2 %}
+                        12 PM
+                    {% elif appointment.slot == 3 %}
+                        3 PM
+                    {% elif appointment.slot == 4 %}
+                        6 PM
+                    {% endif %}
+                </td>
+                <td>{{ appointment.date.strftime('%d-%m-%Y') }}</td>
+            </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
     </div>
-    </section>
-
-      <script src="{{ url_for('static', filename='js/booking.js') }}"></script>       
     <hr>
-     <footer id="contact" class="footer-container">
+    <footer id="contact" class="footer-container">
             <div class="footer-content">
                 <div>
                     <div class="footer-section">
@@ -231,7 +180,8 @@
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                                     <circle cx="12" cy="10" r="3"></circle>
                                 </svg>
-                                <span>Plot No - 3, Beside Avalon Buss Hub, Vesu, Near Indian Bank, SD Jain School Lane, Piplod, Surat-395007, Gujarat
+                                <span>
+                                    Plot No - 3, Beside Avalon Buss Hub, Vesu, Near Indian Bank, SD Jain School Lane, Piplod, Surat-395007, Gujarat
                                 </span>
                             </div>
                             <div class="contact-item">
@@ -275,24 +225,8 @@
             </div>
         </div>
     </footer>
+    <script src="{{ url_for('static', filename='js/events.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scroll_animations.js') }}"></script>
 
-    <!-- Success Modal -->
-    <div id="success-modal" class="modal-overlay">
-        <div class="modal">
-            <button class="modal-close" id="close-modal">&times;</button>
-
-            <h2>✅ Booking Confirmed</h2>
-
-            <div class="modal-content" id="modal-content">
-            <!-- injected by JS -->
-            </div>
-
-            <button class="modal-btn" id="modal-ok">Done</button>
-        </div>
-    </div>
-
-        <script src="{{ url_for('static', filename='js/events.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/scroll_animations.js') }}"></script>
-
-    </body>
+</body>
 </html>
