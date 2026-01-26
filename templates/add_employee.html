@@ -15,7 +15,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chill_thrive.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/scroll_animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    
+    <style>
+    .form-box-2 {
+        height: 100%;
+        margin-top: 0.25rem;
+        margin-bottom: 3rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    </style>
 </head>
+
+
 <body>
     <!-- Navigation -->
     <header>
@@ -26,21 +40,12 @@
                     <a href="{{ url_for('chill_thrive') }}" class="logo">Chill Thrive</a>
 
                 <ul>
-                    <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
+                   <li><a href="{{ url_for('chill_thrive') }}">HOME</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#discover">DISCOVER</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#services">SERVICES</a></li>
-                    {% if user %}
-                        {% if user.role == 1 %}
-                            <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
-                            <li><a href="{{ url_for('history') }}">HISTORY</a></li>
-                        {% endif %}
-                    {% else %}
-                        <li><a href="{{ url_for('booking') }}">BOOKING</a></li>
-                        <li><a href="{{ url_for('history') }}">HISTORY</a></li>
-                    {% endif %}
                     <li><a href="{{ url_for('chill_thrive') }}#events">EVENTS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#reviews">REVIEW</a></li>
-                    <li><a href="{{ url_for('founder')}}">FOUNDERS</a></li>
+                    <li><a href="{{ url_for('founder') }}">FOUNDERS</a></li>
                     <li><a href="{{ url_for('chill_thrive') }}#contact">CONTACT US</a></li>
                     {% if user %}
                         {% if user.role == 0 or user.role == 2 %}
@@ -49,105 +54,75 @@
                                 <li><a href="{{ url_for('add_employee') }}">ADD EMPLOYEE</a></li>
                             {% endif %}
                         {% endif %}
-                        <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
                     {% endif %}
                  </ul>
             </nav>
         </div>
     </header>
-    <div class="form-box">
-        <!--appointments of user-->
-        <h1>Upcoming Appointments</h1>
+     <div class="form-box">
+          <h2>Add an employee</h2>
+          <form
+            method="POST"
+            action="{{ url_for('add_employee') }}"
+            enctype="multipart/form-data"
+          >
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              required
+            />
+
+            <input
+              type="number"
+              name="phone"
+              placeholder="Phone Number"
+              required
+            /> 
+
+            <input type="text"
+            name="email" 
+            placeholder="Email" 
+            required
+            />
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+            
+            <button type="submit">Add Employee</button>
+          </form>
+        </div>
+        <div class="form-box-2">
+        <!--List of employees-->
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
-                <th>Appointment ID</th>
-                <th>Recovery Path</th>
-                <th>Slot</th>
-                <th>Date</th>
-              </tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
             </thead>
             <tbody>
-              {% for appointment in active_appointments %}
-              <tr>
-                <td>{{ appointment.id }}</td>
-                <td>{% if appointment.recovery_path == 1 %}
-                        Ice Bath
-                    {% elif appointment.recovery_path == 2 %}
-                        Jacuzzi
-                    {% elif appointment.recovery_path == 3 %}
-                        Steam Bath
-                    {% elif appointment.recovery_path == 4 %}
-                        Full Combo
-                    {% endif %}
-                </td>
-                <td>{% if appointment.slot == 1 %}
-                        9 AM
-                    {% elif appointment.slot == 2 %}
-                        12 PM
-                    {% elif appointment.slot == 3 %}
-                        3 PM
-                    {% elif appointment.slot == 4 %}
-                        6 PM
-                    {% endif %}
-                </td>
-                <td>{{ appointment.date.strftime('%d-%m-%Y') }}</td>
-            </tr>
-              {% endfor %}
+                {% for emp in employees %}
+                <tr>
+                    <td>{{ emp.id }}</td>
+                    <td>{{ emp.name }}</td>
+                    <td>{{ emp.phone }}</td>
+                    <td>{{ emp.email }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
           </table>
         </div>
-     
     </div>
     <hr>
-    <div class="form-box" style="margin-top: 0.25rem;">
-        <!--appointments of user-->
-        <h1>Appointment History</h1>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Appointment ID</th>
-                <th>Recovery Path</th>
-                <th>Slot</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for appointment in past_appointments %}
-              <tr>
-                <td>{{ appointment.id }}</td>
-                <td>{% if appointment.recovery_path == 1 %}
-                        Ice Bath
-                    {% elif appointment.recovery_path == 2 %}
-                        Jacuzzi
-                    {% elif appointment.recovery_path == 3 %}
-                        Steam Bath
-                    {% elif appointment.recovery_path == 4 %}
-                        Full Combo
-                    {% endif %}
-                </td>
-                <td>{% if appointment.slot == 1 %}
-                        9 AM
-                    {% elif appointment.slot == 2 %}
-                        12 PM
-                    {% elif appointment.slot == 3 %}
-                        3 PM
-                    {% elif appointment.slot == 4 %}
-                        6 PM
-                    {% endif %}
-                </td>
-                <td>{{ appointment.date.strftime('%d-%m-%Y') }}</td>
-            </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-     
-    </div>
-    <hr>
-    <footer id="contact" class="footer-container">
+     <footer id="contact" class="footer-container">
             <div class="footer-content">
                 <div>
                     <div class="footer-section">
@@ -202,13 +177,13 @@
                     <div class="footer-section">
                         <h2>Follow Us</h2>
                         <div class="social-icons">
-                           <a href="https://www.youtube.com/@ChillThrive" title="Youtube" aria-label="Youtube">
+                            <a href="https://www.youtube.com/@ChillThrive" title="Youtube" aria-label="Youtube">
                                 <i class="fab fa-youtube"></i>
                             </a>
                             <a href="https://www.instagram.com/chill.thrive/" title="Instagram" aria-label="Instagram">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <div>
+                            </div>
                         <p class="follow-text">Stay updated with our latest offers and wellness tips!</p>
                     </div>
                 </div>

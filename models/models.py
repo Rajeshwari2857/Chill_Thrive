@@ -8,13 +8,13 @@ db=SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(30), unique=True, nullable=False)
-    email=db.Column(db.String(20), unique=True, nullable=False)
-    phone = db.Column(db.Integer, nullable=False)  
-    password = db.Column(db.String(60), nullable=False)
+    email=db.Column(db.String, unique=True, nullable=False)
+    phone = db.Column(db.String(15), nullable=False)  
+    password = db.Column(db.String(400), nullable=False)
     role = db.Column(db.Integer, nullable=False, default=1)
     appointments = db.relationship("Appointments", backref = "customer", lazy = True)
-    # 1 = customer
     # 0 = admin
+    # 1 = customer
     # 2 = employee
 
 

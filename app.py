@@ -14,7 +14,11 @@ load_dotenv()
 app = Flask(__name__)
 
 app.secret_key = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project_db.sqlite3'
+DATABASE_URL = os.getenv("DATABASE_URL")
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    "pool_pre_ping": True
+}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -108,6 +112,38 @@ def jacuzzi():
 @app.route("/ice_bath")
 def ice_bath():
     return render_template("ice_bath.html", title = "Ice bath")
+
+
+@app.route("/add-employee", methods = ['GET', 'POST'])
+def add_employee():
+    if 'user_id' not in session:
+        flash('Please log in to book an appointment.', 'error')
+        return redirect(url_for('login'))
+    user = User.query.filter_by(id=session['user_id']).first()
+    if user.role != 0:
+        flash('Not permitted', 'error')
+        return redirect('admin_dashboard')
+    
+    employees = User.query.filter_by(role=2).all()
+    
+    if request.method == 'POST':
+        name = request.form['name']
+        phone = request.form['phone']
+        email = request.form['email']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password)
+
+        try:
+            new_user = User(email=email, name=name, phone=phone,
+                            password=hashed_password, role=2)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Employee added successfully!', 'success')
+            return redirect(url_for('add_employee'))
+        except Exception as e:
+            flash('Username or email already exists.', 'error')
+            print(e)
+    return render_template("add_employee.html", title = "Add Employee", user=user, employees=employees)
 
 
 @app.route("/steam_bath")
@@ -250,5 +286,11 @@ def admin_dashboard():
     )
 
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html"), 404
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
